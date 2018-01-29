@@ -1,7 +1,5 @@
 package board
 
-// import "fmt"
-
 func (board Board) Rows() [][]string {
 	width := board.width
 	rows := make([][]string, width)
@@ -14,17 +12,22 @@ func (board Board) Rows() [][]string {
 	return rows
 }
 
+func extractCol(rows [][]string, colIndex int) []string {
+	col := make([]string, 3)
+
+	for i, row := range rows {
+		col[i] = row[colIndex]
+	}
+	return col
+}
+
 func (board Board) Cols() [][]string {
 	width := board.width
+	rows := board.Rows()
 	cols := make([][]string, width)
 
 	for i := 0; i < width; i++ {
-		var col []string
-
-		for j := 0; j < width; j++ {
-			col = append(col, board.spaces[j*width+i])
-		}
-		cols[i] = col
+		cols[i] = extractCol(rows, i)
 	}
 	return cols
 }
@@ -37,8 +40,6 @@ func (board Board) Diagonals() [][]string {
 		diagonals[0] = append(diagonals[0], row[i])
 		diagonals[1] = append(diagonals[1], row[board.width-1-i])
 	}
-	// diagonals[0] = append(diagonals[0], rows[0][0], rows[1][1], rows[2][2])
-	// diagonals[1] = append(diagonals[1], rows[0][2], rows[1][1], rows[2][0])
 
 	return diagonals
 }

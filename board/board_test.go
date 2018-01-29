@@ -76,19 +76,29 @@ func TestMarkSpace(t *testing.T) {
 func TestSpaceExistsIsTrueWhenSpaceExists(t *testing.T) {
 	board := board.New(3)
 
-	result := board.SpaceExists(3)
+	validSpaces := []int{
+		0, 1, 2, 3, 4, 5, 6, 7, 8,
+	}
 
-	if result != true {
-		t.Errorf("expected true, got %q", result)
+	for _, validSpaceIndex := range validSpaces {
+		result := board.SpaceExists(validSpaceIndex)
+		if result == false {
+			t.Errorf("Expected SpaceExists(%d) to be true, got %v", validSpaceIndex, result)
+		}
 	}
 }
 
 func TestSpaceExistsIsFalseWhenSpaceDoesNotExist(t *testing.T) {
 	board := board.New(3)
 
-	result := board.SpaceExists(10)
+	invalidSpaces := []int{
+		-1, 9, -8, 10,
+	}
 
-	if result != false {
-		t.Errorf("expected false, got %q", result)
+	for _, invalidSpaceIndex := range invalidSpaces {
+		result := board.SpaceExists(invalidSpaceIndex)
+		if result == true {
+			t.Errorf("Expected SpaceExists(%d) to be false, got %v", invalidSpaceIndex, result)
+		}
 	}
 }
