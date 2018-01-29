@@ -33,8 +33,12 @@ func (board Board) Diagonals() [][]string {
 	rows := board.Rows()
 	diagonals := make([][]string, 2)
 
-	diagonals[0] = append(diagonals[0], rows[0][0], rows[1][1], rows[2][2])
-	diagonals[1] = append(diagonals[1], rows[0][2], rows[1][1], rows[2][0])
+	for i, row := range rows {
+		diagonals[0] = append(diagonals[0], row[i])
+		diagonals[1] = append(diagonals[1], row[board.width-1-i])
+	}
+	// diagonals[0] = append(diagonals[0], rows[0][0], rows[1][1], rows[2][2])
+	// diagonals[1] = append(diagonals[1], rows[0][2], rows[1][1], rows[2][0])
 
 	return diagonals
 }
