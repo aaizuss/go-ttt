@@ -58,3 +58,34 @@ func TestDiagonalsGetsDiagonals(t *testing.T) {
 		t.Errorf("Expected %v, got %v", diagonals, board.Diagonals())
 	}
 }
+
+func TestIndexedRowsFromNewBoard(t *testing.T) {
+	board := board.New(3)
+
+	want := [][]string{
+		{"0", "1", "2"},
+		{"3", "4", "5"},
+		{"6", "7", "8"},
+	}
+
+	if !reflect.DeepEqual(want, board.IndexedRows()) {
+		t.Errorf("Expected %v, got %v", want, board.IndexedRows())
+	}
+}
+
+func TestIndexedRowsFromMarkedBoard(t *testing.T) {
+	board := board.New(3)
+	board.MarkSpace(1, "x")
+	board.MarkSpace(4, "x")
+	board.MarkSpace(7, "x")
+
+	want := [][]string{
+		{"0", "x", "2"},
+		{"3", "x", "5"},
+		{"6", "x", "8"},
+	}
+
+	if !reflect.DeepEqual(want, board.IndexedRows()) {
+		t.Errorf("Expected %v, got %v", want, board.IndexedRows())
+	}
+}
