@@ -1,12 +1,35 @@
 package board_test
 
-// might want to use board package instead to be able to test private functions
 import (
 	"github.com/aaizuss/tictactoe/board"
 	"reflect"
 
 	"testing"
 )
+
+func nearlyFullBoard() board.Board {
+	board := board.New(3)
+
+	for i := 0; i < 8; i++ {
+		board.MarkSpace(i, "x")
+	}
+	return board
+}
+
+func tieBoard() board.Board {
+	board := board.New(3)
+
+	board.MarkSpace(0, "x")
+	board.MarkSpace(1, "x")
+	board.MarkSpace(2, "o")
+	board.MarkSpace(3, "o")
+	board.MarkSpace(4, "o")
+	board.MarkSpace(5, "x")
+	board.MarkSpace(6, "x")
+	board.MarkSpace(7, "o")
+	board.MarkSpace(8, "x")
+	return board
+}
 
 func TestAllPossibleRowCombos(t *testing.T) {
 	board := boardWithNumberMarks()
@@ -40,15 +63,13 @@ func TestIsFullReturnsTrueWhenBoardIsFull(t *testing.T) {
 }
 
 func TestIsFullReturnsFalseWhenBoardIsNotFull(t *testing.T) {
-	board := board.New(3)
-	for i := 0; i < 8; i++ {
-		board.MarkSpace(i, "x")
-	}
+	notFullBoards := []board.Board{nearlyFullBoard(), board.New(3)}
 
-	result := board.IsFull()
-
-	if result != false {
-		t.Errorf("Expected false, got %v", result)
+	for _, board := range notFullBoards {
+		result := board.IsFull()
+		if result != false {
+			t.Errorf("Expected false, got %v", result)
+		}
 	}
 }
 
@@ -57,6 +78,7 @@ func TestHasWinnerDiagonal(t *testing.T) {
 	board.MarkSpace(0, "x")
 	board.MarkSpace(4, "x")
 	board.MarkSpace(8, "x")
+
 	result := board.HasWinner()
 
 	if result != true {
@@ -69,6 +91,7 @@ func TestHasWinnerRow(t *testing.T) {
 	board.MarkSpace(3, "x")
 	board.MarkSpace(4, "x")
 	board.MarkSpace(5, "x")
+
 	result := board.HasWinner()
 
 	if result != true {
@@ -81,6 +104,7 @@ func TestHasWinnerColumn(t *testing.T) {
 	board.MarkSpace(2, "x")
 	board.MarkSpace(5, "x")
 	board.MarkSpace(8, "x")
+
 	result := board.HasWinner()
 
 	if result != true {
@@ -88,11 +112,12 @@ func TestHasWinnerColumn(t *testing.T) {
 	}
 }
 
-func TestHasWinnerFalse(t *testing.T) {
+func TestHasWinnerReturnsFalseWhenNoWinner(t *testing.T) {
 	board := board.New(3)
 	board.MarkSpace(2, "x")
 	board.MarkSpace(5, "x")
 	board.MarkSpace(8, "o")
+
 	result := board.HasWinner()
 
 	if result != false {
@@ -106,7 +131,7 @@ func TestWinningMarker(t *testing.T) {
 	board.MarkSpace(4, "x")
 	board.MarkSpace(8, "x")
 
-	result := board.WinningMarker()
+	result, _ := board.Winner()
 
 	if result != "x" {
 		t.Errorf("Expected x, got %v", result)
@@ -119,9 +144,29 @@ func TestWinningMarkerReturnsNothingWhenNoWinner(t *testing.T) {
 	board.MarkSpace(4, "x")
 	board.MarkSpace(8, "o")
 
-	result := board.WinningMarker()
+	result, err := board.Winner()
 
-	if result != "" {
-		t.Errorf("Expected , got %v", result)
+	if err == nil {
+		t.Errorf("Expected NoWinnerError, got %v", result)
+	}
+}
+
+func TestIsTieReturnsTrueWhenThereIsATie(t *testing.T) {
+	board := tieBoard()
+
+	result := board.IsTie()
+
+	if result != true {
+		t.Errorf("Expected true, got %v", result)
+	}
+}
+
+func TestIsTieReturnsFalseWhenNoTie(t *testing.T) {
+	board := nearlyFullBoard()
+
+	result := board.IsTie()
+
+	if result != false {
+		t.Errorf("Expected false, got %v", result)
 	}
 }

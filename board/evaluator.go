@@ -1,5 +1,11 @@
 package board
 
+import "errors"
+
+var (
+	NoWinnerError = errors.New("This board does not have a winner.")
+)
+
 func (board Board) AllPossibleRowCombos() [][]string {
 	var allRows [][]string
 
@@ -16,55 +22,45 @@ func (board Board) AllPossibleRowCombos() [][]string {
 	return allRows
 }
 
-func (board Board) IsFull() bool {
-	for i := range board.spaces {
-		if board.IsEmpty(i) {
+func all(spaces []string, f func(string) bool) bool {
+	for _, space := range spaces {
+		if !f(space) {
 			return false
 		}
 	}
 	return true
 }
 
-func sameInARow(row []string) bool {
+func (board Board) IsFull() bool {
+	return all(board.spaces, isMarked)
+}
+
+func isWinningRow(row []string) bool {
 	firstMarker := row[0]
 
-	for _, marker := range row {
-		if marker == EmptySpace || marker != firstMarker {
-			return false
-		}
-	}
-	return true
+	return all(row, func(space string) bool {
+		return isMarked(space) && space == firstMarker
+	})
 }
 
-// Only call when you know there is a winner
-func (board Board) winningRow() []string {
-	var noWinningRow []string
-	for _, row := range board.AllPossibleRowCombos() {
-		if sameInARow(row) {
-			return row
-		}
-	}
-	return noWinningRow
-}
-
-// is it bad to write a function that returns 2 values, like
-// (bool, winner) where bool is whether the board has a winner and winner is the marker?
-// it's more efficient...
 func (board Board) HasWinner() bool {
 	for _, row := range board.AllPossibleRowCombos() {
-		if sameInARow(row) {
+		if isWinningRow(row) {
 			return true
 		}
 	}
 	return false
 }
 
-func (board Board) WinningMarker() string {
-	winningRow := board.winningRow()
-	if len(winningRow) != 0 {
-		return winningRow[0]
-	} else {
-		// this is so ugly
-		return ""
+func (board Board) Winner() (winner string, err error) {
+	for _, row := range board.AllPossibleRowCombos() {
+		if isWinningRow(row) {
+			return row[0], nil
+		}
 	}
+	return "", NoWinnerError
+}
+
+func (board Board) IsTie() bool {
+	return board.IsFull() && !board.HasWinner()
 }
