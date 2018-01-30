@@ -20,56 +20,60 @@ func boardWithNumberMarks() board.Board {
 
 func TestRowsGetsRows(t *testing.T) {
 	board := boardWithNumberMarks()
-
-	rows := [][]string{
+	expectedRows := [][]string{
 		{"0", "1", "2"},
 		{"3", "4", "5"},
 		{"6", "7", "8"},
 	}
 
-	if !reflect.DeepEqual(rows, board.Rows()) {
-		t.Errorf("Expected %v, got %v", rows, board.Rows())
+	result := board.Rows()
+
+	if !reflect.DeepEqual(expectedRows, result) {
+		t.Errorf("Expected %v, got %v", expectedRows, result)
 	}
 }
 
 func TestColsGetsColumns(t *testing.T) {
 	board := boardWithNumberMarks()
-
-	cols := [][]string{
+	expectedCols := [][]string{
 		{"0", "3", "6"},
 		{"1", "4", "7"},
 		{"2", "5", "8"},
 	}
 
-	if !reflect.DeepEqual(cols, board.Cols()) {
-		t.Errorf("Expected %v, got %v", cols, board.Cols())
+	result := board.Cols()
+
+	if !reflect.DeepEqual(expectedCols, result) {
+		t.Errorf("Expected %v, got %v", expectedCols, result)
 	}
 }
 
 func TestDiagonalsGetsDiagonals(t *testing.T) {
 	board := boardWithNumberMarks()
-
-	diagonals := [][]string{
+	expectedDiagonals := [][]string{
 		{"0", "4", "8"},
 		{"2", "4", "6"},
 	}
 
-	if !reflect.DeepEqual(diagonals, board.Diagonals()) {
-		t.Errorf("Expected %v, got %v", diagonals, board.Diagonals())
+	result := board.Diagonals()
+
+	if !reflect.DeepEqual(expectedDiagonals, result) {
+		t.Errorf("Expected %v, got %v", expectedDiagonals, result)
 	}
 }
 
 func TestIndexedRowsFromNewBoard(t *testing.T) {
 	board := board.New(3)
-
 	want := [][]string{
 		{"0", "1", "2"},
 		{"3", "4", "5"},
 		{"6", "7", "8"},
 	}
 
-	if !reflect.DeepEqual(want, board.IndexedRows()) {
-		t.Errorf("Expected %v, got %v", want, board.IndexedRows())
+	result := board.IndexedRows()
+
+	if !reflect.DeepEqual(want, result) {
+		t.Errorf("Expected %v, got %v", want, result)
 	}
 }
 
@@ -84,8 +88,9 @@ func TestIndexedRowsFromMarkedBoard(t *testing.T) {
 		{"3", "x", "5"},
 		{"6", "x", "8"},
 	}
+	result := board.IndexedRows()
 
-	if !reflect.DeepEqual(want, board.IndexedRows()) {
-		t.Errorf("Expected %v, got %v", want, board.IndexedRows())
+	if !reflect.DeepEqual(want, result) {
+		t.Errorf("Expected %v, got %v", want, result)
 	}
 }

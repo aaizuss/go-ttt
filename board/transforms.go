@@ -16,15 +16,6 @@ func (board Board) Rows() [][]string {
 	return rows
 }
 
-func extractCol(rows [][]string, colIndex int) []string {
-	col := make([]string, 3)
-
-	for i, row := range rows {
-		col[i] = row[colIndex]
-	}
-	return col
-}
-
 func (board Board) Cols() [][]string {
 	width := board.width
 	rows := board.Rows()
@@ -55,6 +46,15 @@ func (board Board) IndexedRows() [][]string {
 	}
 	indexedBoard := Board{spaces: newSpaces, NumSpaces: board.NumSpaces, width: board.width}
 	return indexedBoard.Rows()
+}
+
+func extractCol(rows [][]string, colIndex int) []string {
+	col := make([]string, 3)
+
+	for i, row := range rows {
+		col[i] = row[colIndex]
+	}
+	return col
 }
 
 func renderSpace(index int, space string) string {
