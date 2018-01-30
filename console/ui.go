@@ -5,6 +5,10 @@ import (
 	"strconv"
 )
 
+func (cli CommandLine) DisplayBoard(board board.Board) {
+	cli.Write(board.FormattedString())
+}
+
 func (cli CommandLine) GetMove(board board.Board) (move int) {
 	for {
 		cli.Show("choose-space")
@@ -12,6 +16,8 @@ func (cli CommandLine) GetMove(board board.Board) (move int) {
 
 		if IsValidMoveChoice(board, move) {
 			return toInt(move)
+		} else {
+			cli.Show("invalid-move")
 		}
 	}
 }
