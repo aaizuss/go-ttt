@@ -68,3 +68,41 @@ func TestSpaceExistsIsFalseWhenSpaceDoesNotExist(t *testing.T) {
 		}
 	}
 }
+
+func TestIsValidMoveReturnsTrueWhenSpaceIsAvailable(t *testing.T) {
+	board := board.New(3)
+	board.MarkSpace(0, "x")
+	choice := 5
+
+	expected := true
+	result := board.IsValidMove(choice)
+
+	if result != expected {
+		t.Errorf("Expected %d to be a valid move, got %v", choice, result)
+	}
+}
+
+func TestIsValidMoveReturnsFalseWhenTheSpaceDoesNotExist(t *testing.T) {
+	board := board.New(3)
+	choice := 9
+
+	expected := false
+	result := board.IsValidMove(choice)
+
+	if result != expected {
+		t.Errorf("Expected %d to be %v, got %v", choice, expected, result)
+	}
+}
+
+func TestIsValidMoveReturnsFalseWhenTheSpaceIsMarked(t *testing.T) {
+	board := board.New(3)
+	board.MarkSpace(0, "x")
+	choice := 0
+
+	expected := false
+	result := board.IsValidMove(choice)
+
+	if result != expected {
+		t.Errorf("Expected %d to be %v, got %v", choice, expected, result)
+	}
+}
