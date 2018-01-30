@@ -27,6 +27,10 @@ func (board Board) MarkSpace(index int, marker string) {
 	board.spaces[index] = marker
 }
 
+func (board Board) IsValidMove(index int) bool {
+	return board.SpaceExists(index) && !isMarked(board.spaces[index])
+}
+
 func (board Board) SpaceExists(index int) bool {
 	return index >= 0 && index < board.NumSpaces
 }
