@@ -16,15 +16,6 @@ func (board Board) Rows() [][]string {
 	return rows
 }
 
-func extractCol(rows [][]string, colIndex int) []string {
-	col := make([]string, 3)
-
-	for i, row := range rows {
-		col[i] = row[colIndex]
-	}
-	return col
-}
-
 func (board Board) Cols() [][]string {
 	width := board.width
 	rows := board.Rows()
@@ -51,12 +42,25 @@ func (board Board) Diagonals() [][]string {
 func (board Board) IndexedRows() [][]string {
 	newSpaces := make([]string, board.NumSpaces)
 	for i, space := range board.spaces {
-		if !isMarked(space) {
-			newSpaces[i] = strconv.Itoa(i)
-		} else {
-			newSpaces[i] = space
-		}
+		newSpaces[i] = renderSpace(i, space)
 	}
 	indexedBoard := Board{spaces: newSpaces, NumSpaces: board.NumSpaces, width: board.width}
 	return indexedBoard.Rows()
+}
+
+func extractCol(rows [][]string, colIndex int) []string {
+	col := make([]string, 3)
+
+	for i, row := range rows {
+		col[i] = row[colIndex]
+	}
+	return col
+}
+
+func renderSpace(index int, space string) string {
+	if isMarked(space) {
+		return space
+	} else {
+		return strconv.Itoa(index)
+	}
 }
