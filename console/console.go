@@ -28,8 +28,8 @@ func (cli CommandLine) Read() string {
 	return input
 }
 
-func (cli CommandLine) Write(output string) {
-	fmt.Fprintf(cli.Writer, "%v", output)
+func (cli CommandLine) Write(message string) {
+	fmt.Fprintf(cli.Writer, "%v", message)
 }
 
 func (cli CommandLine) Show(key string) {
