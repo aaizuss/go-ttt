@@ -1,5 +1,9 @@
 package board
 
+import (
+	"strconv"
+)
+
 func (board Board) Rows() [][]string {
 	width := board.width
 	rows := make([][]string, width)
@@ -42,4 +46,17 @@ func (board Board) Diagonals() [][]string {
 	}
 
 	return diagonals
+}
+
+func (board Board) IndexedRows() [][]string {
+	newSpaces := make([]string, board.NumSpaces)
+	for i, space := range board.spaces {
+		if !isMarked(space) {
+			newSpaces[i] = strconv.Itoa(i)
+		} else {
+			newSpaces[i] = space
+		}
+	}
+	indexedBoard := Board{spaces: newSpaces, NumSpaces: board.NumSpaces, width: board.width}
+	return indexedBoard.Rows()
 }
