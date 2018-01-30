@@ -3,10 +3,10 @@ package board
 import "errors"
 
 var (
-	NoWinnerError = errors.New("This board does not have a winner.")
+	NoWinnerError = errors.New("this board does not have a winner")
 )
 
-func (board Board) AllPossibleRowCombos() [][]string {
+func (board Board) WinningCombos() [][]string {
 	var allRows [][]string
 
 	for _, row := range board.Rows() {
@@ -22,17 +22,30 @@ func (board Board) AllPossibleRowCombos() [][]string {
 	return allRows
 }
 
-func all(spaces []string, f func(string) bool) bool {
-	for _, space := range spaces {
-		if !f(space) {
-			return false
+func (board Board) Winner() (winner string, err error) {
+	for _, row := range board.WinningCombos() {
+		if isWinningRow(row) {
+			return row[0], nil
 		}
 	}
-	return true
+	return "", NoWinnerError
+}
+
+func (board Board) HasWinner() bool {
+	for _, row := range board.WinningCombos() {
+		if isWinningRow(row) {
+			return true
+		}
+	}
+	return false
 }
 
 func (board Board) IsFull() bool {
 	return all(board.spaces, isMarked)
+}
+
+func (board Board) IsTie() bool {
+	return board.IsFull() && !board.HasWinner()
 }
 
 func isWinningRow(row []string) bool {
@@ -43,24 +56,11 @@ func isWinningRow(row []string) bool {
 	})
 }
 
-func (board Board) HasWinner() bool {
-	for _, row := range board.AllPossibleRowCombos() {
-		if isWinningRow(row) {
-			return true
+func all(spaces []string, f func(string) bool) bool {
+	for _, space := range spaces {
+		if !f(space) {
+			return false
 		}
 	}
-	return false
-}
-
-func (board Board) Winner() (winner string, err error) {
-	for _, row := range board.AllPossibleRowCombos() {
-		if isWinningRow(row) {
-			return row[0], nil
-		}
-	}
-	return "", NoWinnerError
-}
-
-func (board Board) IsTie() bool {
-	return board.IsFull() && !board.HasWinner()
+	return true
 }
