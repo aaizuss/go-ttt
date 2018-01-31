@@ -21,22 +21,6 @@ func TestWrite(t *testing.T) {
 	}
 }
 
-func TestShow(t *testing.T) {
-	var io CommandLine
-	var buf bytes.Buffer
-	io.Writer = &buf
-
-	messageKey := "tie"
-	expectedMessage := "It's a tie!\n"
-
-	io.Show(messageKey)
-	result := buf.String()
-
-	if result != expectedMessage {
-		t.Errorf("expected output: %s, got %s", expectedMessage, result)
-	}
-}
-
 func TestRead(t *testing.T) {
 	var io CommandLine
 	input := "Hellothere"

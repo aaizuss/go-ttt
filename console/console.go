@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-type IO interface {
+type ReadWriter interface {
 	Read() string
 	Write(message string)
 }
@@ -16,11 +16,17 @@ type CommandLine struct {
 	Reader io.Reader
 }
 
-func New() CommandLine {
-	return CommandLine{Writer: os.Stdout, Reader: os.Stdin}
+type UIReadWriter interface {
+	ReadWriter
+	UI
 }
 
-func (cli CommandLine) Read() string {
+func New() *CommandLine {
+	cli := CommandLine{Writer: os.Stdout, Reader: os.Stdin}
+	return &cli
+}
+
+func (cli *CommandLine) Read() string {
 	var input string
 
 	fmt.Fscanf(cli.Reader, "%s", &input)
@@ -28,19 +34,6 @@ func (cli CommandLine) Read() string {
 	return input
 }
 
-func (cli CommandLine) Write(output string) {
-	fmt.Fprintf(cli.Writer, "%v", output)
-}
-
-func (cli CommandLine) Show(key string) {
-	cli.Write(messages[key])
-}
-
-// put in a json file at some point?
-var messages = map[string]string{
-	"welcome":      "|----------------------------|\n|-- Welcome to Tic Tac Toe --|\n|----------------------------|\n",
-	"tie":          "It's a tie!\n",
-	"choose-space": "Enter a number 0-8 to mark that position on the board: ",
-	"invalid-move": "You can't move there. ",
-	"taken-space":  "That space is taken. ",
+func (cli *CommandLine) Write(message string) {
+	fmt.Fprintf(cli.Writer, "%v", message)
 }
