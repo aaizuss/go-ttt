@@ -11,21 +11,25 @@ type Game struct {
 	ui      console.UIReadWriter //lol this reads poorly
 }
 
-func New() Game {
-	return Game{board: board.New(3), players: []string{"x", "o"}, ui: console.New()}
+func New() *Game {
+	players := []string{"x", "o"}
+
+	return &Game{
+		board:   board.New(3),
+		players: players,
+		ui:      console.New(),
+	}
 }
 
-func (game Game) IsOver() bool {
+func (game *Game) IsOver() bool {
 	return game.board.IsTie() || game.board.HasWinner()
 }
 
-func (game Game) TogglePlayer() {
-	current, next := game.players[1], game.players[0]
-	game.players[0] = current
-	game.players[1] = next
+func (game *Game) TogglePlayer() {
+	game.players[0], game.players[1] = game.players[1], game.players[0]
 }
 
-func (game Game) Play() {
+func (game *Game) Play() {
 	board := game.board
 	ui := game.ui
 	players := game.players
