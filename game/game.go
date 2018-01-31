@@ -5,10 +5,27 @@ import (
 	"github.com/aaizuss/tictactoe/console"
 )
 
+type ReadWriter interface {
+	Read() string
+	Write(message string)
+}
+
+type UIReadWriter interface {
+	ReadWriter
+	UI
+}
+
+type UI interface {
+	ShowBoard(board board.Board)
+	ShowOutcome(board board.Board)
+	GetMove(board board.Board) (move int)
+	Show(key string)
+}
+
 type Game struct {
 	board   board.Board
 	players []string
-	ui      console.UIReadWriter //lol this reads poorly
+	ui      UIReadWriter
 }
 
 func New() *Game {

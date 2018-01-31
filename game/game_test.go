@@ -1,17 +1,16 @@
 package game
 
 import (
-	"github.com/aaizuss/tictactoe/board"
-	"github.com/aaizuss/tictactoe/console"
-
 	"reflect"
 	"strings"
+
+	"github.com/aaizuss/tictactoe/board"
 
 	"testing"
 )
 
 func TestTogglePlayer(t *testing.T) {
-	cli := console.MockConsole{}
+	cli := MockConsole{}
 	game := Game{board: board.New(3), players: []string{"x", "o"}, ui: &cli}
 
 	expected := []string{"o", "x"}
@@ -24,7 +23,7 @@ func TestTogglePlayer(t *testing.T) {
 }
 
 func TestPlayWhenAboutToTie(t *testing.T) {
-	cli := console.MockConsole{UserInput: "8"}
+	cli := MockConsole{UserInput: "8"}
 	game := Game{board: almostTieBoard(), players: []string{"x", "o"}, ui: &cli}
 
 	game.Play()
@@ -37,7 +36,7 @@ func TestPlayWhenAboutToTie(t *testing.T) {
 }
 
 func TestPlayHaltsWhenThereIsAWinner(t *testing.T) {
-	cli := console.MockConsole{UserInput: "2"}
+	cli := MockConsole{UserInput: "2"}
 	game := Game{board: xAlmostWinBoard(), players: []string{"x", "o"}, ui: &cli}
 
 	game.Play()

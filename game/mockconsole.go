@@ -1,7 +1,10 @@
-package console
+package game
 
 import (
+	"strconv"
+
 	"github.com/aaizuss/tictactoe/board"
+	"github.com/aaizuss/tictactoe/console" //i don't want to depend on this
 )
 
 type MockConsole struct {
@@ -26,8 +29,9 @@ func (cli *MockConsole) GetMove(board board.Board) (move int) {
 		cli.Show("choose-space")
 		move := cli.Read()
 
-		if IsValidMoveChoice(board, move) {
-			return toInt(move)
+		if console.IsValidMoveChoice(board, move) {
+			move, _ := strconv.Atoi(move)
+			return move
 		} else {
 			cli.Show("invalid-move")
 		}
@@ -35,7 +39,7 @@ func (cli *MockConsole) GetMove(board board.Board) (move int) {
 }
 
 func (cli *MockConsole) Show(key string) {
-	cli.Write(messages[key])
+	cli.Write(console.Messages[key])
 }
 
 func (cli *MockConsole) ShowOutcome(board board.Board) {
