@@ -5,8 +5,17 @@ import (
 	"strconv"
 )
 
+type UI interface {
+	DisplayBoard(board board.Board)
+	GetMove(board board.Board) (move int)
+}
+
 func (cli CommandLine) DisplayBoard(board board.Board) {
 	cli.Write(board.FormattedString())
+}
+
+func (cli CommandLine) Show(key string) {
+	cli.Write(messages[key])
 }
 
 func (cli CommandLine) GetMove(board board.Board) (move int) {
@@ -25,4 +34,13 @@ func (cli CommandLine) GetMove(board board.Board) (move int) {
 func toInt(inputMove string) int {
 	move, _ := strconv.Atoi(inputMove)
 	return move
+}
+
+// put in a json file at some point?
+var messages = map[string]string{
+	"welcome":      "|----------------------------|\n|-- Welcome to Tic Tac Toe --|\n|----------------------------|\n",
+	"tie":          "It's a tie!\n",
+	"choose-space": "Enter a number 0-8 to mark that position on the board: ",
+	"invalid-move": "You can't move there. ",
+	"taken-space":  "That space is taken. ",
 }

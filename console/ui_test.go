@@ -40,3 +40,19 @@ func TestGetMovePromptsForMoveUntilMoveIsValid(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, result)
 	}
 }
+
+func TestShow(t *testing.T) {
+	var io CommandLine
+	var buf bytes.Buffer
+	io.Writer = &buf
+
+	messageKey := "tie"
+	expectedMessage := "It's a tie!\n"
+
+	io.Show(messageKey)
+	result := buf.String()
+
+	if result != expectedMessage {
+		t.Errorf("expected output: %s, got %s", expectedMessage, result)
+	}
+}

@@ -8,7 +8,7 @@ import (
 type Game struct {
 	board   board.Board
 	players []string
-	ui      console.CommandLine //lol this reads poorly
+	ui      console.UIReadWriter //lol this reads poorly
 }
 
 func New() Game {

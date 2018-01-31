@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-type IO interface {
+type ReadWriter interface {
 	Read() string
 	Write(message string)
 }
@@ -14,6 +14,11 @@ type IO interface {
 type CommandLine struct {
 	Writer io.Writer
 	Reader io.Reader
+}
+
+type UIReadWriter interface {
+	ReadWriter
+	UI
 }
 
 func New() CommandLine {
@@ -30,17 +35,4 @@ func (cli CommandLine) Read() string {
 
 func (cli CommandLine) Write(message string) {
 	fmt.Fprintf(cli.Writer, "%v", message)
-}
-
-func (cli CommandLine) Show(key string) {
-	cli.Write(messages[key])
-}
-
-// put in a json file at some point?
-var messages = map[string]string{
-	"welcome":      "|----------------------------|\n|-- Welcome to Tic Tac Toe --|\n|----------------------------|\n",
-	"tie":          "It's a tie!\n",
-	"choose-space": "Enter a number 0-8 to mark that position on the board: ",
-	"invalid-move": "You can't move there. ",
-	"taken-space":  "That space is taken. ",
 }
