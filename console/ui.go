@@ -8,17 +8,18 @@ import (
 type UI interface {
 	DisplayBoard(board board.Board)
 	GetMove(board board.Board) (move int)
+	Show(key string)
 }
 
-func (cli CommandLine) DisplayBoard(board board.Board) {
+func (cli *CommandLine) DisplayBoard(board board.Board) {
 	cli.Write(board.FormattedString())
 }
 
-func (cli CommandLine) Show(key string) {
+func (cli *CommandLine) Show(key string) {
 	cli.Write(messages[key])
 }
 
-func (cli CommandLine) GetMove(board board.Board) (move int) {
+func (cli *CommandLine) GetMove(board board.Board) (move int) {
 	for {
 		cli.Show("choose-space")
 		move := cli.Read()

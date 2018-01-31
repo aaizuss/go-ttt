@@ -21,11 +21,12 @@ type UIReadWriter interface {
 	UI
 }
 
-func New() CommandLine {
-	return CommandLine{Writer: os.Stdout, Reader: os.Stdin}
+func New() *CommandLine {
+	cli := CommandLine{Writer: os.Stdout, Reader: os.Stdin}
+	return &cli
 }
 
-func (cli CommandLine) Read() string {
+func (cli *CommandLine) Read() string {
 	var input string
 
 	fmt.Fscanf(cli.Reader, "%s", &input)
@@ -33,6 +34,6 @@ func (cli CommandLine) Read() string {
 	return input
 }
 
-func (cli CommandLine) Write(message string) {
+func (cli *CommandLine) Write(message string) {
 	fmt.Fprintf(cli.Writer, "%v", message)
 }

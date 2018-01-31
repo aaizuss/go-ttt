@@ -4,25 +4,15 @@ import (
 	"github.com/aaizuss/tictactoe/board"
 	"github.com/aaizuss/tictactoe/console"
 
-	"bytes"
 	"reflect"
 	"strings"
 
 	"testing"
 )
 
-var consoleOutputBuffer bytes.Buffer
-
-func CliWithInput(input string) console.CommandLine {
-	var cli console.CommandLine
-	cli.Writer = &consoleOutputBuffer
-	cli.Reader = strings.NewReader(input)
-	return cli
-}
-
 func TestTogglePlayer(t *testing.T) {
-	cli := CliWithInput("") // going to need to refactor CommandLine so I can mock it
-	game := Game{board: board.New(3), players: []string{"x", "o"}, ui: cli}
+	cli := console.MockConsole{}
+	game := Game{board: board.New(3), players: []string{"x", "o"}, ui: &cli}
 
 	expected := []string{"o", "x"}
 	game.TogglePlayer()
@@ -34,12 +24,12 @@ func TestTogglePlayer(t *testing.T) {
 }
 
 func TestPlayWhenAboutToTie(t *testing.T) {
-	cli := CliWithInput("8")
-	game := Game{board: almostTieBoard(), players: []string{"x", "o"}, ui: cli}
+	cli := console.MockConsole{UserInput: "8"}
+	game := Game{board: almostTieBoard(), players: []string{"x", "o"}, ui: &cli}
 
 	game.Play()
 	expected := "It's a tie!\n"
-	result := consoleOutputBuffer.String()
+	result := cli.Output
 
 	if !strings.Contains(result, expected) {
 		t.Errorf("Expected %v, got %v", expected, result)
@@ -47,12 +37,12 @@ func TestPlayWhenAboutToTie(t *testing.T) {
 }
 
 func TestPlayHaltsWhenThereIsAWinner(t *testing.T) {
-	cli := CliWithInput("2")
-	game := Game{board: xAlmostWinBoard(), players: []string{"x", "o"}, ui: cli}
+	cli := console.MockConsole{UserInput: "2"}
+	game := Game{board: xAlmostWinBoard(), players: []string{"x", "o"}, ui: &cli}
 
 	game.Play()
 	expected := "win"
-	result := consoleOutputBuffer.String()
+	result := cli.Output
 
 	if !strings.Contains(result, expected) {
 		t.Errorf("Expected %v, got %v", expected, result)
