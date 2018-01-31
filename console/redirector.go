@@ -17,7 +17,7 @@ func (cli *MockConsole) Write(message string) {
 	cli.Output += message
 }
 
-func (cli *MockConsole) DisplayBoard(board board.Board) {
+func (cli *MockConsole) ShowBoard(board board.Board) {
 	cli.Write(board.FormattedString())
 }
 
@@ -36,4 +36,14 @@ func (cli *MockConsole) GetMove(board board.Board) (move int) {
 
 func (cli *MockConsole) Show(key string) {
 	cli.Write(messages[key])
+}
+
+func (cli *MockConsole) ShowOutcome(board board.Board) {
+	if board.IsTie() {
+		cli.Show("tie")
+	} else {
+		winner, _ := board.Winner()
+		winMessage := "Player " + winner + " wins!\n"
+		cli.Write(winMessage)
+	}
 }

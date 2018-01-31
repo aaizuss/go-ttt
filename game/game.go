@@ -31,23 +31,14 @@ func (game Game) Play() {
 	players := game.players
 
 	ui.Show("welcome")
-	ui.DisplayBoard(board)
+	ui.ShowBoard(board)
 
 	for !game.IsOver() {
 		move := ui.GetMove(board)
 		board.MarkSpace(move, players[0])
 		game.TogglePlayer()
-		ui.DisplayBoard(board)
+		ui.ShowBoard(board)
 	}
 
-	if game.board.IsTie() {
-		ui.Show("tie")
-	} else {
-		winner, _ := board.Winner()
-		ui.Write("winner")
-		ui.Write(winner)
-	}
-
+	ui.ShowOutcome(board)
 }
-
-// game := Game{board: board.New(3), players: {"x","o"}, ui: console.New()}
