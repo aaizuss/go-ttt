@@ -155,12 +155,37 @@ func TestIsTieReturnsFalseWhenNoTie(t *testing.T) {
 	}
 }
 
+func TestGameOverReturnsFalseForOngoingGame(t *testing.T) {
+	board := ongoingGame()
+
+	expected := false
+	result := board.GameOver()
+
+	if result != expected {
+		t.Errorf("Expected %v, got %v\nfrom board: %v", expected, result, board)
+	}
+}
+
 func nearlyFullBoard() board.Board {
 	board := board.New(3)
 
 	for i := 0; i < 8; i++ {
 		board.MarkSpace(i, "x")
 	}
+	return board
+}
+
+func ongoingGame() board.Board {
+	board := board.New(3)
+
+	board.MarkSpace(0, "x")
+	board.MarkSpace(1, "x")
+	board.MarkSpace(2, "o")
+	board.MarkSpace(3, "o")
+	board.MarkSpace(4, "o")
+	board.MarkSpace(5, "x")
+	board.MarkSpace(6, "x")
+	board.MarkSpace(7, "o")
 	return board
 }
 

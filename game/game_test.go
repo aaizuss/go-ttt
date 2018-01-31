@@ -11,9 +11,14 @@ import (
 
 func TestTogglePlayer(t *testing.T) {
 	cli := MockConsole{}
-	game := Game{board: board.New(3), players: []string{"x", "o"}, ui: &cli}
+	players := humanHuman()
+	game := Game{board: board.New(3), players: players, ui: &cli}
 
-	expected := []string{"o", "x"}
+	expected := []Player{
+		Player{marker: "o", isHuman: true},
+		Player{marker: "x", isHuman: true},
+	}
+
 	game.TogglePlayer()
 	result := game.players
 
@@ -24,7 +29,8 @@ func TestTogglePlayer(t *testing.T) {
 
 func TestPlayWhenAboutToTie(t *testing.T) {
 	cli := MockConsole{UserInput: "8"}
-	game := Game{board: almostTieBoard(), players: []string{"x", "o"}, ui: &cli}
+	players := humanHuman()
+	game := Game{board: almostTieBoard(), players: players, ui: &cli}
 
 	game.Play()
 	expected := "It's a tie!\n"
@@ -37,7 +43,8 @@ func TestPlayWhenAboutToTie(t *testing.T) {
 
 func TestPlayHaltsWhenThereIsAWinner(t *testing.T) {
 	cli := MockConsole{UserInput: "2"}
-	game := Game{board: xAlmostWinBoard(), players: []string{"x", "o"}, ui: &cli}
+	players := humanHuman()
+	game := Game{board: xAlmostWinBoard(), players: players, ui: &cli}
 
 	game.Play()
 	expected := "win"

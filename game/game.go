@@ -1,6 +1,7 @@
 package game
 
 import (
+	"github.com/aaizuss/tictactoe/ai"
 	"github.com/aaizuss/tictactoe/board"
 	"github.com/aaizuss/tictactoe/console"
 )
@@ -24,26 +25,18 @@ type UI interface {
 
 type Game struct {
 	board   board.Board
-	players []string
+	players []Player
 	ui      UIReadWriter
 }
 
 func New() *Game {
-	players := []string{"x", "o"}
+	players := aiHuman()
 
 	return &Game{
 		board:   board.New(3),
 		players: players,
 		ui:      console.New(),
 	}
-}
-
-func (game *Game) IsOver() bool {
-	return game.board.IsTie() || game.board.HasWinner()
-}
-
-func (game *Game) TogglePlayer() {
-	game.players[0], game.players[1] = game.players[1], game.players[0]
 }
 
 func (game *Game) Play() {
@@ -54,12 +47,35 @@ func (game *Game) Play() {
 	ui.Show("welcome")
 	ui.ShowBoard(board)
 
-	for !game.IsOver() {
-		move := ui.GetMove(board)
-		board.MarkSpace(move, players[0])
+	for !board.GameOver() {
+		//move := ui.GetMove(board)
+		move := game.GetMove()
+		board.MarkSpace(move, players[0].marker)
 		game.TogglePlayer()
 		ui.ShowBoard(board)
 	}
 
 	ui.ShowOutcome(board)
+}
+
+func (game *Game) GetMove() int {
+	var move int
+	if game.currentPlayer().isHuman {
+		move = game.ui.GetMove(game.board)
+	} else {
+		move = ai.ChooseMove(game.board, game.markers(), game.currentPlayer().marker)
+	}
+	return move
+}
+
+func (game *Game) TogglePlayer() {
+	game.players[0], game.players[1] = game.players[1], game.players[0]
+}
+
+func (game *Game) currentPlayer() Player {
+	return game.players[0]
+}
+
+func (game *Game) markers() []string {
+	return []string{game.players[0].marker, game.players[1].marker}
 }

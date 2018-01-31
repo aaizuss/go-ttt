@@ -27,6 +27,10 @@ func (board Board) MarkSpace(index int, marker string) {
 	board.spaces[index] = marker
 }
 
+func (board Board) ResetSpace(index int) {
+	board.spaces[index] = EmptySpace
+}
+
 func (board Board) IsValidMove(index int) bool {
 	return board.SpaceExists(index) && !isMarked(board.spaces[index])
 }
@@ -37,4 +41,14 @@ func (board Board) SpaceExists(index int) bool {
 
 func isMarked(space string) bool {
 	return space != EmptySpace
+}
+
+func (board Board) EmptySpaces() []int {
+	var emptySpaces []int
+	for i, space := range board.spaces {
+		if !isMarked(space) {
+			emptySpaces = append(emptySpaces, i)
+		}
+	}
+	return emptySpaces
 }

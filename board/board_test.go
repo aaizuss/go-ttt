@@ -1,8 +1,10 @@
 package board_test
 
 import (
-	"github.com/aaizuss/tictactoe/board"
+	"reflect"
 	"testing"
+
+	"github.com/aaizuss/tictactoe/board"
 )
 
 func TestNewBoardReturnsBoardFromDimensions(t *testing.T) {
@@ -104,5 +106,18 @@ func TestIsValidMoveReturnsFalseWhenTheSpaceIsMarked(t *testing.T) {
 
 	if result != expected {
 		t.Errorf("Expected %d to be %v, got %v", choice, expected, result)
+	}
+}
+
+func TestEmptySpaces(t *testing.T) {
+	board := board.New(3)
+	board.MarkSpace(4, "x")
+	board.MarkSpace(2, "o")
+
+	expected := []int{0, 1, 3, 5, 6, 7, 8}
+	result := board.EmptySpaces()
+
+	if !reflect.DeepEqual(expected, result) {
+		t.Errorf("Expected %v, got %v", expected, result)
 	}
 }

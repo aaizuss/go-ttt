@@ -48,6 +48,10 @@ func (board Board) IsTie() bool {
 	return board.IsFull() && !board.HasWinner()
 }
 
+func (board Board) GameOver() bool {
+	return board.IsTie() || board.HasWinner()
+}
+
 func isWinningRow(row []string) bool {
 	firstMarker := row[0]
 
