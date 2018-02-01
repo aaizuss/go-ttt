@@ -22,10 +22,12 @@ $ go run main.go
 ```
 $ cd $GOPATH/src/github.com/aaizuss/tictactoe
 $go test ./...
-``` 
-will run all tests
+```
+will run all the unit tests
 
 Alternatively, you can navigate to each subdirectory and run `$ go test`
+
+There is a computer vs computer test, and it takes 2 seconds to run, so it's in its own file (`/game/ai_test.go`). To run that test, add `-tags=aitest` to the test command.
 
 ### Idiomatic Go
 I'm just starting too learn go, and the following are resources that I use to write Go like Gophers do
