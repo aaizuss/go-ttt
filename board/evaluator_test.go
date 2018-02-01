@@ -1,8 +1,9 @@
 package board_test
 
 import (
-	"github.com/aaizuss/tictactoe/board"
 	"reflect"
+
+	"github.com/aaizuss/tictactoe/board"
 
 	"testing"
 )

@@ -1,8 +1,9 @@
 package console
 
 import (
-	"github.com/aaizuss/tictactoe/board"
 	"testing"
+
+	"github.com/aaizuss/tictactoe/board"
 )
 
 func TestIsValidMoveChoiceReturnsTrue(t *testing.T) {

@@ -2,9 +2,10 @@ package console
 
 import (
 	"bytes"
-	"github.com/aaizuss/tictactoe/board"
 	"strings"
 	"testing"
+
+	"github.com/aaizuss/tictactoe/board"
 )
 
 func CliWithInput(input string) Console {

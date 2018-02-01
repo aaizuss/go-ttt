@@ -79,3 +79,15 @@ func TestEmptySpaces(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, result)
 	}
 }
+
+func TestResetSpace(t *testing.T) {
+	testBoard := board.New(3)
+	testBoard.MarkSpace(4, "x")
+
+	testBoard.ResetSpace(4)
+	spaceAfterReset := testBoard.Spaces()[4]
+
+	if spaceAfterReset != board.EmptySpace {
+		t.Errorf("Expected space 4 to be empty, got %v", spaceAfterReset)
+	}
+}
