@@ -5,15 +5,15 @@ import (
 	"strconv"
 )
 
-func (cli *CommandLine) ShowBoard(board board.Board) {
+func (cli *Console) ShowBoard(board board.Board) {
 	cli.Write(wrapNewLine(board.FormattedString()))
 }
 
-func (cli *CommandLine) Show(key string) {
+func (cli *Console) Show(key string) {
 	cli.Write(Messages[key])
 }
 
-func (cli *CommandLine) ShowOutcome(board board.Board) {
+func (cli *Console) ShowOutcome(board board.Board) {
 	if board.IsTie() {
 		cli.Show("tie")
 	} else {
@@ -23,7 +23,7 @@ func (cli *CommandLine) ShowOutcome(board board.Board) {
 	}
 }
 
-func (cli *CommandLine) GetMove(board board.Board) (move int) {
+func (cli *Console) GetMove(board board.Board) (move int) {
 	for {
 		cli.Show("choose-space")
 		move := cli.Read()
@@ -36,7 +36,7 @@ func (cli *CommandLine) GetMove(board board.Board) (move int) {
 	}
 }
 
-func (cli *CommandLine) GetGameChoice() string {
+func (cli *Console) GetGameChoice() string {
 	for {
 		cli.Show("choose-game")
 		choice := cli.Read()

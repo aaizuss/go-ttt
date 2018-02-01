@@ -7,8 +7,8 @@ import (
 	"testing"
 )
 
-func CliWithInput(input string) CommandLine {
-	var cli CommandLine
+func CliWithInput(input string) Console {
+	var cli Console
 	var buf bytes.Buffer
 	cli.Writer = &buf
 	cli.Reader = strings.NewReader(input)
@@ -42,7 +42,7 @@ func TestGetMovePromptsForMoveUntilMoveIsValid(t *testing.T) {
 }
 
 func TestShow(t *testing.T) {
-	var io CommandLine
+	var io Console
 	var buf bytes.Buffer
 	io.Writer = &buf
 

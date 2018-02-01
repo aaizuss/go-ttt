@@ -7,7 +7,7 @@ import (
 )
 
 func TestWrite(t *testing.T) {
-	var io CommandLine
+	var io Console
 	var buf bytes.Buffer
 	io.Writer = &buf
 
@@ -22,7 +22,7 @@ func TestWrite(t *testing.T) {
 }
 
 func TestRead(t *testing.T) {
-	var io CommandLine
+	var io Console
 	input := "Hellothere"
 
 	io.Reader = strings.NewReader(input)
