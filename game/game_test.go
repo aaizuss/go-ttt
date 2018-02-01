@@ -40,7 +40,7 @@ func TestTogglePlayer(t *testing.T) {
 		Player{marker: "x", isHuman: true},
 	}
 
-	game.TogglePlayer()
+	game.togglePlayer()
 	result := game.players
 
 	if !reflect.DeepEqual(expected, result) {

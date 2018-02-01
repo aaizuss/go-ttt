@@ -64,3 +64,7 @@ func (cli *MockConsole) ShowOutcome(board board.Board) {
 		cli.Write(winMessage)
 	}
 }
+
+func (cli *MockConsole) ShowMoveRecap(marker string, move int) {
+	cli.Write(marker + " marked " + (strconv.Itoa(move)) + "\n")
+}

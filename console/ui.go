@@ -49,6 +49,10 @@ func (cli *Console) GetGameChoice() string {
 	}
 }
 
+func (cli *Console) ShowMoveRecap(marker string, move int) {
+	cli.Write(marker + " marked " + (strconv.Itoa(move)) + "\n")
+}
+
 func toInt(inputMove string) int {
 	move, _ := strconv.Atoi(inputMove)
 	return move
@@ -62,7 +66,6 @@ var Messages = map[string]string{
 	"choose-space":   "Enter a number 0-8 to mark that position on the board: ",
 	"invalid-move":   "You can't move there. ",
 	"invalid-choice": "That's not an option.\n",
-	"taken-space":    "That space is taken. ",
 }
 
 func wrapNewLine(message string) string {

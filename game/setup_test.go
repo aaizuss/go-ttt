@@ -23,3 +23,15 @@ func TestAiHuman(t *testing.T) {
 		t.Errorf("Expected second player to be human, got %v", players[0])
 	}
 }
+
+func TestHumanAi(t *testing.T) {
+	players := humanAi()
+
+	if !players[0].isHuman {
+		t.Errorf("Expected first player to be human, got %v", players[0])
+	}
+
+	if players[1].isHuman {
+		t.Errorf("Expected second player to be ai, got %v", players[1])
+	}
+}
