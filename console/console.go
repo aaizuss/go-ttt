@@ -6,17 +6,17 @@ import (
 	"os"
 )
 
-type CommandLine struct {
+type Console struct {
 	Writer io.Writer
 	Reader io.Reader
 }
 
-func New() *CommandLine {
-	cli := CommandLine{Writer: os.Stdout, Reader: os.Stdin}
+func New() *Console {
+	cli := Console{Writer: os.Stdout, Reader: os.Stdin}
 	return &cli
 }
 
-func (cli *CommandLine) Read() string {
+func (cli *Console) Read() string {
 	var input string
 
 	fmt.Fscanf(cli.Reader, "%s", &input)
@@ -24,6 +24,6 @@ func (cli *CommandLine) Read() string {
 	return input
 }
 
-func (cli *CommandLine) Write(message string) {
+func (cli *Console) Write(message string) {
 	fmt.Fprintf(cli.Writer, "%v", message)
 }

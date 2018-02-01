@@ -12,3 +12,7 @@ func IsValidMoveChoice(board board.Board, inputMove string) bool {
 	}
 	return board.IsValidMove(move)
 }
+
+func IsValidGameChoice(input string) bool {
+	return input == "1" || input == "2" || input == "3"
+}

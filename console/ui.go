@@ -5,15 +5,15 @@ import (
 	"strconv"
 )
 
-func (cli *CommandLine) ShowBoard(board board.Board) {
+func (cli *Console) ShowBoard(board board.Board) {
 	cli.Write(wrapNewLine(board.FormattedString()))
 }
 
-func (cli *CommandLine) Show(key string) {
+func (cli *Console) Show(key string) {
 	cli.Write(Messages[key])
 }
 
-func (cli *CommandLine) ShowOutcome(board board.Board) {
+func (cli *Console) ShowOutcome(board board.Board) {
 	if board.IsTie() {
 		cli.Show("tie")
 	} else {
@@ -23,7 +23,7 @@ func (cli *CommandLine) ShowOutcome(board board.Board) {
 	}
 }
 
-func (cli *CommandLine) GetMove(board board.Board) (move int) {
+func (cli *Console) GetMove(board board.Board) (move int) {
 	for {
 		cli.Show("choose-space")
 		move := cli.Read()
@@ -36,6 +36,23 @@ func (cli *CommandLine) GetMove(board board.Board) (move int) {
 	}
 }
 
+func (cli *Console) GetGameChoice() string {
+	for {
+		cli.Show("choose-game")
+		choice := cli.Read()
+
+		if IsValidGameChoice(choice) {
+			return choice
+		} else {
+			cli.Show("invalid-choice")
+		}
+	}
+}
+
+func (cli *Console) ShowMoveRecap(marker string, move int) {
+	cli.Write(marker + " marked " + (strconv.Itoa(move)) + "\n")
+}
+
 func toInt(inputMove string) int {
 	move, _ := strconv.Atoi(inputMove)
 	return move
@@ -43,11 +60,12 @@ func toInt(inputMove string) int {
 
 // put in a json file at some point?
 var Messages = map[string]string{
-	"welcome":      "|----------------------------|\n|-- Welcome to Tic Tac Toe --|\n|----------------------------|\n",
-	"tie":          "It's a tie!\n",
-	"choose-space": "Enter a number 0-8 to mark that position on the board: ",
-	"invalid-move": "You can't move there. ",
-	"taken-space":  "That space is taken. ",
+	"welcome":        "|----------------------------|\n|-- Welcome to Tic Tac Toe --|\n|----------------------------|\n\n",
+	"tie":            "It's a tie!\n",
+	"choose-game":    "Choose a game type.\n1  human v human\n2  human v computer\n3  computer v human\n\n",
+	"choose-space":   "Enter a number 0-8 to mark that position on the board: ",
+	"invalid-move":   "You can't move there. ",
+	"invalid-choice": "That's not an option.\n",
 }
 
 func wrapNewLine(message string) string {

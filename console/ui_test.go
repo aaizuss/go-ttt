@@ -7,8 +7,8 @@ import (
 	"testing"
 )
 
-func CliWithInput(input string) CommandLine {
-	var cli CommandLine
+func CliWithInput(input string) Console {
+	var cli Console
 	var buf bytes.Buffer
 	cli.Writer = &buf
 	cli.Reader = strings.NewReader(input)
@@ -42,7 +42,7 @@ func TestGetMovePromptsForMoveUntilMoveIsValid(t *testing.T) {
 }
 
 func TestShow(t *testing.T) {
-	var io CommandLine
+	var io Console
 	var buf bytes.Buffer
 	io.Writer = &buf
 
@@ -54,5 +54,27 @@ func TestShow(t *testing.T) {
 
 	if result != expectedMessage {
 		t.Errorf("expected output: %s, got %s", expectedMessage, result)
+	}
+}
+
+func TestGetGameChoiceReturnsChoice(t *testing.T) {
+	cli := CliWithInput("1")
+
+	expected := "1"
+	result := cli.GetGameChoice()
+
+	if result != expected {
+		t.Errorf("Expected %v, got %v", expected, result)
+	}
+}
+
+func TestGetGameChoicePromptsUntilChoiceIsValid(t *testing.T) {
+	cli := CliWithInput("abc\n5\n3")
+
+	expected := "3"
+	result := cli.GetGameChoice()
+
+	if result != expected {
+		t.Errorf("Expected %v, got %v", expected, result)
 	}
 }

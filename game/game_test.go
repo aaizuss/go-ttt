@@ -9,12 +9,20 @@ import (
 	"testing"
 )
 
-func TestTogglePlayer(t *testing.T) {
-	cli := MockConsole{}
-	game := Game{board: board.New(3), players: []string{"x", "o"}, ui: &cli}
+func emptyPlayers() []Player {
+	return []Player{Player{}, Player{}}
+}
 
-	expected := []string{"o", "x"}
-	game.TogglePlayer()
+func TestSetupPlayers(t *testing.T) {
+	cli := MockConsole{UserInput: "1"}
+	game := Game{board: board.New(3), players: emptyPlayers(), ui: &cli}
+
+	expected := []Player{
+		Player{marker: "x", isHuman: true},
+		Player{marker: "o", isHuman: true},
+	}
+
+	game.SetupPlayers()
 	result := game.players
 
 	if !reflect.DeepEqual(expected, result) {
@@ -22,11 +30,30 @@ func TestTogglePlayer(t *testing.T) {
 	}
 }
 
-func TestPlayWhenAboutToTie(t *testing.T) {
-	cli := MockConsole{UserInput: "8"}
-	game := Game{board: almostTieBoard(), players: []string{"x", "o"}, ui: &cli}
+func TestTogglePlayer(t *testing.T) {
+	cli := MockConsole{}
+	players := humanHuman()
+	game := Game{board: board.New(3), players: players, ui: &cli}
 
-	game.Play()
+	expected := []Player{
+		Player{marker: "o", isHuman: true},
+		Player{marker: "x", isHuman: true},
+	}
+
+	game.togglePlayer()
+	result := game.players
+
+	if !reflect.DeepEqual(expected, result) {
+		t.Errorf("Expected %v, got %v", expected, result)
+	}
+}
+
+func TestTakeTurnsWhenAboutToTie(t *testing.T) {
+	cli := MockConsole{UserInput: "8"}
+	players := humanHuman()
+	game := Game{board: almostTieBoard(), players: players, ui: &cli}
+
+	game.takeTurns()
 	expected := "It's a tie!\n"
 	result := cli.Output
 
@@ -35,11 +62,12 @@ func TestPlayWhenAboutToTie(t *testing.T) {
 	}
 }
 
-func TestPlayHaltsWhenThereIsAWinner(t *testing.T) {
+func TestTakeTurnsHaltsWhenThereIsAWinner(t *testing.T) {
 	cli := MockConsole{UserInput: "2"}
-	game := Game{board: xAlmostWinBoard(), players: []string{"x", "o"}, ui: &cli}
+	players := humanHuman()
+	game := Game{board: xAlmostWinBoard(), players: players, ui: &cli}
 
-	game.Play()
+	game.takeTurns()
 	expected := "win"
 	result := cli.Output
 
@@ -48,8 +76,23 @@ func TestPlayHaltsWhenThereIsAWinner(t *testing.T) {
 	}
 }
 
+func TestComputersAgainstEachOtherResultsInTie(t *testing.T) {
+	cli := MockConsole{}
+	p1 := Player{marker: "x", isHuman: false}
+	p2 := Player{marker: "o", isHuman: false}
+	players := []Player{p1, p2}
+	game := Game{board: board.New(3), players: players, ui: &cli}
+
+	game.takeTurns()
+	result := game.board.IsTie()
+	expect := true
+
+	if result != expect {
+		t.Errorf("Expected %v, got %v", expect, result)
+	}
+}
+
 func almostTieBoard() board.Board {
-	// x will move to 8 to tie
 	board := board.New(3)
 
 	board.MarkSpace(0, "x")
