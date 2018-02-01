@@ -9,6 +9,27 @@ import (
 	"testing"
 )
 
+func emptyPlayers() []Player {
+	return []Player{Player{}, Player{}}
+}
+
+func TestSetupPlayers(t *testing.T) {
+	cli := MockConsole{UserInput: "1"}
+	game := Game{board: board.New(3), players: emptyPlayers(), ui: &cli}
+
+	expected := []Player{
+		Player{marker: "x", isHuman: true},
+		Player{marker: "o", isHuman: true},
+	}
+
+	game.SetupPlayers()
+	result := game.players
+
+	if !reflect.DeepEqual(expected, result) {
+		t.Errorf("Expected %v, got %v", expected, result)
+	}
+}
+
 func TestTogglePlayer(t *testing.T) {
 	cli := MockConsole{}
 	players := humanHuman()
@@ -27,12 +48,12 @@ func TestTogglePlayer(t *testing.T) {
 	}
 }
 
-func TestPlayWhenAboutToTie(t *testing.T) {
+func TestTakeTurnsWhenAboutToTie(t *testing.T) {
 	cli := MockConsole{UserInput: "8"}
 	players := humanHuman()
 	game := Game{board: almostTieBoard(), players: players, ui: &cli}
 
-	game.Play()
+	game.takeTurns()
 	expected := "It's a tie!\n"
 	result := cli.Output
 
@@ -41,12 +62,12 @@ func TestPlayWhenAboutToTie(t *testing.T) {
 	}
 }
 
-func TestPlayHaltsWhenThereIsAWinner(t *testing.T) {
+func TestTakeTurnsHaltsWhenThereIsAWinner(t *testing.T) {
 	cli := MockConsole{UserInput: "2"}
 	players := humanHuman()
 	game := Game{board: xAlmostWinBoard(), players: players, ui: &cli}
 
-	game.Play()
+	game.takeTurns()
 	expected := "win"
 	result := cli.Output
 

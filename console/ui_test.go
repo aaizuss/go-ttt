@@ -56,3 +56,25 @@ func TestShow(t *testing.T) {
 		t.Errorf("expected output: %s, got %s", expectedMessage, result)
 	}
 }
+
+func TestGetGameChoiceReturnsChoice(t *testing.T) {
+	cli := CliWithInput("1")
+
+	expected := "1"
+	result := cli.GetGameChoice()
+
+	if result != expected {
+		t.Errorf("Expected %v, got %v", expected, result)
+	}
+}
+
+func TestGetGameChoicePromptsUntilChoiceIsValid(t *testing.T) {
+	cli := CliWithInput("abc\n5\n3")
+
+	expected := "3"
+	result := cli.GetGameChoice()
+
+	if result != expected {
+		t.Errorf("Expected %v, got %v", expected, result)
+	}
+}

@@ -38,6 +38,19 @@ func (cli *MockConsole) GetMove(board board.Board) (move int) {
 	}
 }
 
+func (cli *MockConsole) GetGameChoice() string {
+	for {
+		cli.Show("choose-game")
+		choice := cli.Read()
+
+		if console.IsValidGameChoice(choice) {
+			return choice
+		} else {
+			cli.Show("invalid-choice")
+		}
+	}
+}
+
 func (cli *MockConsole) Show(key string) {
 	cli.Write(console.Messages[key])
 }

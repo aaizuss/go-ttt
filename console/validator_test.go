@@ -34,3 +34,14 @@ func TestIsValidMoveChoiceReturnsFalseWhenChoiceIsInvalid(t *testing.T) {
 		}
 	}
 }
+
+func TestIsValidGameChoiceReturnsTrue(t *testing.T) {
+	input := "2"
+
+	expected := true
+	result := IsValidGameChoice(input)
+
+	if result != expected {
+		t.Errorf("Expected %v, got %v", expected, result)
+	}
+}
