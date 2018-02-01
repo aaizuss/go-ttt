@@ -18,13 +18,16 @@ func TestNewBoardReturnsBoardFromDimensions(t *testing.T) {
 }
 
 func TestNewBoardReturnsEmptyBoard(t *testing.T) {
-	blankBoard := board.New(3)
-	expected := "_"
+	board := board.New(3)
+	expectedSpaces := []string{
+		"_", "_", "_",
+		"_", "_", "_",
+		"_", "_", "_",
+	}
+	spaces := board.Spaces()
 
-	for i, space := range blankBoard.Spaces() {
-		if space != expected {
-			t.Errorf("Expected board[%d] to be '_', got %q", i, space)
-		}
+	if !reflect.DeepEqual(expectedSpaces, spaces) {
+		t.Errorf("Expected board to be %v, got %v", expectedSpaces, spaces)
 	}
 }
 
@@ -39,73 +42,28 @@ func TestMarkSpace(t *testing.T) {
 	}
 }
 
-func TestSpaceExistsIsTrueWhenSpaceExists(t *testing.T) {
-	board := board.New(3)
-	expected := true
-
-	validSpaces := []int{
-		0, 1, 2, 3, 4, 5, 6, 7, 8,
-	}
-
-	for _, validSpaceIndex := range validSpaces {
-		result := board.SpaceExists(validSpaceIndex)
-		if result != expected {
-			t.Errorf("Expected SpaceExists(%d) to be true, got %v", validSpaceIndex, result)
-		}
-	}
-}
-
-func TestSpaceExistsIsFalseWhenSpaceDoesNotExist(t *testing.T) {
-	board := board.New(3)
-	expected := false
-
-	invalidSpaces := []int{
-		-1, 9, -8, 10,
-	}
-
-	for _, invalidSpaceIndex := range invalidSpaces {
-		result := board.SpaceExists(invalidSpaceIndex)
-		if result != expected {
-			t.Errorf("Expected SpaceExists(%d) to be false, got %v", invalidSpaceIndex, result)
-		}
-	}
-}
-
-func TestIsValidMoveReturnsTrueWhenSpaceIsAvailable(t *testing.T) {
+func TestIsValidMoveChecksSpaceExistsAndNotMarked(t *testing.T) {
 	board := board.New(3)
 	board.MarkSpace(0, "x")
-	choice := 5
+	board.MarkSpace(4, "o")
 
-	expected := true
-	result := board.IsValidMove(choice)
-
-	if result != expected {
-		t.Errorf("Expected %d to be a valid move, got %v", choice, result)
+	tests := []struct {
+		space            int
+		expectedValidity bool
+	}{
+		{0, false},
+		{1, true},
+		{2, true},
+		{3, true},
+		{4, false},
+		{9, false},
+		{-1, false},
 	}
-}
-
-func TestIsValidMoveReturnsFalseWhenTheSpaceDoesNotExist(t *testing.T) {
-	board := board.New(3)
-	choice := 9
-
-	expected := false
-	result := board.IsValidMove(choice)
-
-	if result != expected {
-		t.Errorf("Expected %d to be %v, got %v", choice, expected, result)
-	}
-}
-
-func TestIsValidMoveReturnsFalseWhenTheSpaceIsMarked(t *testing.T) {
-	board := board.New(3)
-	board.MarkSpace(0, "x")
-	choice := 0
-
-	expected := false
-	result := board.IsValidMove(choice)
-
-	if result != expected {
-		t.Errorf("Expected %d to be %v, got %v", choice, expected, result)
+	for _, test := range tests {
+		result := board.IsValidMove(test.space)
+		if result != test.expectedValidity {
+			t.Errorf("expected IsValidMove(%d) to be %v, got %v", test.space, test.expectedValidity, result)
+		}
 	}
 }
 

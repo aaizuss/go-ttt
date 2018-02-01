@@ -41,11 +41,12 @@ func TestIsFullReturnsTrueWhenBoardIsFull(t *testing.T) {
 
 func TestIsFullReturnsFalseWhenBoardIsNotFull(t *testing.T) {
 	notFullBoards := []board.Board{nearlyFullBoard(), board.New(3)}
+	expected := false
 
 	for _, board := range notFullBoards {
-		result := board.IsFull()
-		if result != false {
-			t.Errorf("Expected false, got %v", result)
+		isFull := board.IsFull()
+		if isFull != expected {
+			t.Errorf("Expected %v, got %v", expected, isFull)
 		}
 	}
 }
@@ -106,7 +107,7 @@ func TestHasWinnerReturnsFalseWhenNoWinner(t *testing.T) {
 	}
 }
 
-func TestWinningMarker(t *testing.T) {
+func TestWinner(t *testing.T) {
 	board := board.New(3)
 	board.MarkSpace(0, "x")
 	board.MarkSpace(4, "x")
@@ -120,16 +121,16 @@ func TestWinningMarker(t *testing.T) {
 	}
 }
 
-func TestWinningMarkerReturnsNothingWhenNoWinner(t *testing.T) {
+func TestWinnerReturnsErrorWhenNoWinner(t *testing.T) {
 	board := board.New(3)
 	board.MarkSpace(0, "x")
 	board.MarkSpace(4, "x")
 	board.MarkSpace(8, "o")
 
-	result, err := board.Winner()
+	winner, err := board.Winner()
 
 	if err == nil {
-		t.Errorf("Expected NoWinnerError, got %v", result)
+		t.Errorf("Expected NoWinnerError, got %v", winner)
 	}
 }
 

@@ -2,9 +2,7 @@ package board
 
 import "errors"
 
-var (
-	NoWinnerError = errors.New("this board does not have a winner")
-)
+var NoWinnerError = errors.New("this board does not have a winner")
 
 func (board Board) WinningCombos() [][]string {
 	var allRows [][]string
