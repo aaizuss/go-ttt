@@ -14,22 +14,22 @@ func TestWrite(t *testing.T) {
 	message := "Hello, world"
 
 	io.Write(message)
-	result := buf.String()
+	output := buf.String()
 
-	if result != message {
-		t.Errorf("expected output: %s, got %s", message, result)
+	if output != message {
+		t.Errorf("expected output: %s, got %s", message, output)
 	}
 }
 
 func TestRead(t *testing.T) {
 	var io Console
-	input := "Hellothere"
+	want := "Hello"
 
-	io.Reader = strings.NewReader(input)
+	io.Reader = strings.NewReader(want)
 
-	result := io.Read()
+	got := io.Read()
 
-	if result != input {
-		t.Fatalf("expected input: %s, got %v", input, result)
+	if got != want {
+		t.Fatalf("expected input: %s, got %v", want, got)
 	}
 }

@@ -79,3 +79,28 @@ func TestGetGameChoicePromptsUntilChoiceIsValid(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, result)
 	}
 }
+
+func TestShowOutcome(t *testing.T) {
+	var io Console
+	var buf bytes.Buffer
+	io.Writer = &buf
+	board := xWinsBoard()
+
+	expectedMessage := "Player x wins!\n"
+
+	io.ShowOutcome(board)
+	result := buf.String()
+
+	if result != expectedMessage {
+		t.Errorf("expected output: %s, got %s", expectedMessage, result)
+	}
+}
+
+func xWinsBoard() board.Board {
+	board := board.New(3)
+	board.MarkSpace(0, "x")
+	board.MarkSpace(4, "x")
+	board.MarkSpace(8, "x")
+
+	return board
+}
