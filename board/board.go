@@ -15,8 +15,8 @@ func (board Board) Spaces() []string {
 func New(width int) Board {
 	numSpaces := width * width
 	board := Board{NumSpaces: numSpaces, width: width}
-
 	board.spaces = make([]string, numSpaces)
+
 	for i := range board.spaces {
 		board.spaces[i] = EmptySpace
 	}
@@ -27,20 +27,8 @@ func (board Board) MarkSpace(index int, marker string) {
 	board.spaces[index] = marker
 }
 
-func (board Board) ResetSpace(index int) {
-	board.spaces[index] = EmptySpace
-}
-
 func (board Board) IsValidMove(index int) bool {
-	return board.SpaceExists(index) && !isMarked(board.spaces[index])
-}
-
-func (board Board) SpaceExists(index int) bool {
-	return index >= 0 && index < board.NumSpaces
-}
-
-func isMarked(space string) bool {
-	return space != EmptySpace
+	return board.spaceExists(index) && !isMarked(board.spaces[index])
 }
 
 func (board Board) EmptySpaces() []int {
@@ -51,4 +39,16 @@ func (board Board) EmptySpaces() []int {
 		}
 	}
 	return emptySpaces
+}
+
+func (board Board) ResetSpace(index int) {
+	board.spaces[index] = EmptySpace
+}
+
+func (board Board) spaceExists(index int) bool {
+	return index >= 0 && index < board.NumSpaces
+}
+
+func isMarked(space string) bool {
+	return space != EmptySpace
 }

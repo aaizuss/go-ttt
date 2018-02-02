@@ -1,22 +1,13 @@
 package board_test
 
 import (
-	"github.com/aaizuss/tictactoe/board"
 	"reflect"
 	"strconv"
 
+	"github.com/aaizuss/tictactoe/board"
+
 	"testing"
 )
-
-func boardWithNumberMarks() board.Board {
-	board := board.New(3)
-
-	for index := range board.Spaces() {
-		board.MarkSpace(index, strconv.Itoa(index))
-	}
-
-	return board
-}
 
 func TestRowsGetsRows(t *testing.T) {
 	board := boardWithNumberMarks()
@@ -62,35 +53,12 @@ func TestDiagonalsGetsDiagonals(t *testing.T) {
 	}
 }
 
-func TestIndexedRowsFromNewBoard(t *testing.T) {
+func boardWithNumberMarks() board.Board {
 	board := board.New(3)
-	want := [][]string{
-		{"0", "1", "2"},
-		{"3", "4", "5"},
-		{"6", "7", "8"},
+
+	for index := range board.Spaces() {
+		board.MarkSpace(index, strconv.Itoa(index))
 	}
 
-	result := board.IndexedRows()
-
-	if !reflect.DeepEqual(want, result) {
-		t.Errorf("Expected %v, got %v", want, result)
-	}
-}
-
-func TestIndexedRowsFromMarkedBoard(t *testing.T) {
-	board := board.New(3)
-	board.MarkSpace(1, "x")
-	board.MarkSpace(4, "x")
-	board.MarkSpace(7, "x")
-
-	want := [][]string{
-		{"0", "x", "2"},
-		{"3", "x", "5"},
-		{"6", "x", "8"},
-	}
-	result := board.IndexedRows()
-
-	if !reflect.DeepEqual(want, result) {
-		t.Errorf("Expected %v, got %v", want, result)
-	}
+	return board
 }

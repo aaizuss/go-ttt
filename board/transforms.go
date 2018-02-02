@@ -1,9 +1,5 @@
 package board
 
-import (
-	"strconv"
-)
-
 func (board Board) Rows() [][]string {
 	width := board.width
 	rows := make([][]string, width)
@@ -39,15 +35,6 @@ func (board Board) Diagonals() [][]string {
 	return diagonals
 }
 
-func (board Board) IndexedRows() [][]string {
-	newSpaces := make([]string, board.NumSpaces)
-	for i, space := range board.spaces {
-		newSpaces[i] = renderSpace(i, space)
-	}
-	indexedBoard := Board{spaces: newSpaces, NumSpaces: board.NumSpaces, width: board.width}
-	return indexedBoard.Rows()
-}
-
 func extractCol(rows [][]string, colIndex int) []string {
 	col := make([]string, 3)
 
@@ -55,12 +42,4 @@ func extractCol(rows [][]string, colIndex int) []string {
 		col[i] = row[colIndex]
 	}
 	return col
-}
-
-func renderSpace(index int, space string) string {
-	if isMarked(space) {
-		return space
-	} else {
-		return strconv.Itoa(index)
-	}
 }

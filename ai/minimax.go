@@ -8,20 +8,6 @@ func ChooseMove(board board.Board, players []string, aiMarker string) int {
 	return minimax(board, 0, players, aiMarker)
 }
 
-func changeTurn(markers []string) []string {
-	return []string{markers[1], markers[0]}
-}
-
-func isAiTurn(markers []string, aiMarker string) bool {
-	return markers[0] == aiMarker
-}
-
-func aiWin(board board.Board, aiMarker string) bool {
-	winner, _ := board.Winner()
-	return winner == aiMarker
-}
-
-// can only be called when the game is over!
 func score(board board.Board, depth int, aiMarker string) int {
 	if board.IsTie() {
 		return 0
@@ -63,13 +49,23 @@ func bestPlayerOutcome(scoredMoves map[int]int, players []string, aiMarker strin
 	}
 }
 
+func changeTurn(markers []string) []string {
+	return []string{markers[1], markers[0]}
+}
+
+func isAiTurn(markers []string, aiMarker string) bool {
+	return markers[0] == aiMarker
+}
+
+func aiWin(board board.Board, aiMarker string) bool {
+	winner, _ := board.Winner()
+	return winner == aiMarker
+}
+
 func maximizeScore(scoredMoves map[int]int) (bestMove int, maxScore int) {
 	bestMove, maxScore = -100, -100
 	for move, score := range scoredMoves {
-		// fmt.Printf("current bestmove: %v, score: %v\n", bestMove, maxScore)
-		// fmt.Printf("looking at move: %v, score: %v\n", move, score)
 		if score > maxScore {
-			//fmt.Printf("changing to move %v with max score: %v\n", bestMove, maxScore)
 			maxScore = score
 			bestMove = move
 		}

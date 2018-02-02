@@ -2,9 +2,10 @@ package console
 
 import (
 	"bytes"
-	"github.com/aaizuss/tictactoe/board"
 	"strings"
 	"testing"
+
+	"github.com/aaizuss/tictactoe/board"
 )
 
 func CliWithInput(input string) Console {
@@ -77,4 +78,29 @@ func TestGetGameChoicePromptsUntilChoiceIsValid(t *testing.T) {
 	if result != expected {
 		t.Errorf("Expected %v, got %v", expected, result)
 	}
+}
+
+func TestShowOutcome(t *testing.T) {
+	var io Console
+	var buf bytes.Buffer
+	io.Writer = &buf
+	board := xWinsBoard()
+
+	expectedMessage := "Player x wins!\n"
+
+	io.ShowOutcome(board)
+	result := buf.String()
+
+	if result != expectedMessage {
+		t.Errorf("expected output: %s, got %s", expectedMessage, result)
+	}
+}
+
+func xWinsBoard() board.Board {
+	board := board.New(3)
+	board.MarkSpace(0, "x")
+	board.MarkSpace(4, "x")
+	board.MarkSpace(8, "x")
+
+	return board
 }

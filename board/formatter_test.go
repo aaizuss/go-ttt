@@ -47,3 +47,36 @@ func TestDivider(t *testing.T) {
 		t.Errorf("Expected %v, got %v", want, result)
 	}
 }
+
+func TestIndexedRowsFromNewBoard(t *testing.T) {
+	board := New(3)
+	want := [][]string{
+		{"0", "1", "2"},
+		{"3", "4", "5"},
+		{"6", "7", "8"},
+	}
+
+	result := board.indexedRows()
+
+	if !reflect.DeepEqual(want, result) {
+		t.Errorf("Expected %v, got %v", want, result)
+	}
+}
+
+func TestIndexedRowsFromMarkedBoard(t *testing.T) {
+	board := New(3)
+	board.MarkSpace(1, "x")
+	board.MarkSpace(4, "x")
+	board.MarkSpace(7, "x")
+
+	want := [][]string{
+		{"0", "x", "2"},
+		{"3", "x", "5"},
+		{"6", "x", "8"},
+	}
+	result := board.indexedRows()
+
+	if !reflect.DeepEqual(want, result) {
+		t.Errorf("Expected %v, got %v", want, result)
+	}
+}

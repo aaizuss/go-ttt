@@ -1,8 +1,9 @@
 package console
 
 import (
-	"github.com/aaizuss/tictactoe/board"
 	"strconv"
+
+	"github.com/aaizuss/tictactoe/board"
 )
 
 func IsValidMoveChoice(board board.Board, inputMove string) bool {

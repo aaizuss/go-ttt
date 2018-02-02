@@ -54,7 +54,7 @@ func TestTakeTurnsWhenAboutToTie(t *testing.T) {
 	game := Game{board: almostTieBoard(), players: players, ui: &cli}
 
 	game.takeTurns()
-	expected := "It's a tie!\n"
+	expected := "tie"
 	result := cli.Output
 
 	if !strings.Contains(result, expected) {
@@ -73,22 +73,6 @@ func TestTakeTurnsHaltsWhenThereIsAWinner(t *testing.T) {
 
 	if !strings.Contains(result, expected) {
 		t.Errorf("Expected %v, got %v", expected, result)
-	}
-}
-
-func TestComputersAgainstEachOtherResultsInTie(t *testing.T) {
-	cli := MockConsole{}
-	p1 := Player{marker: "x", isHuman: false}
-	p2 := Player{marker: "o", isHuman: false}
-	players := []Player{p1, p2}
-	game := Game{board: board.New(3), players: players, ui: &cli}
-
-	game.takeTurns()
-	result := game.board.IsTie()
-	expect := true
-
-	if result != expect {
-		t.Errorf("Expected %v, got %v", expect, result)
 	}
 }
 

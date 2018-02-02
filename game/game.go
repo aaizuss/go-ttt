@@ -41,6 +41,7 @@ func New() *Game {
 }
 
 func (game *Game) Play() {
+	game.ui.Show("welcome")
 	game.SetupPlayers()
 	game.takeTurns()
 }

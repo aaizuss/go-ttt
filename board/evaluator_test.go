@@ -1,8 +1,9 @@
 package board_test
 
 import (
-	"github.com/aaizuss/tictactoe/board"
 	"reflect"
+
+	"github.com/aaizuss/tictactoe/board"
 
 	"testing"
 )
@@ -41,11 +42,12 @@ func TestIsFullReturnsTrueWhenBoardIsFull(t *testing.T) {
 
 func TestIsFullReturnsFalseWhenBoardIsNotFull(t *testing.T) {
 	notFullBoards := []board.Board{nearlyFullBoard(), board.New(3)}
+	expected := false
 
 	for _, board := range notFullBoards {
-		result := board.IsFull()
-		if result != false {
-			t.Errorf("Expected false, got %v", result)
+		isFull := board.IsFull()
+		if isFull != expected {
+			t.Errorf("Expected %v, got %v", expected, isFull)
 		}
 	}
 }
@@ -106,7 +108,7 @@ func TestHasWinnerReturnsFalseWhenNoWinner(t *testing.T) {
 	}
 }
 
-func TestWinningMarker(t *testing.T) {
+func TestWinner(t *testing.T) {
 	board := board.New(3)
 	board.MarkSpace(0, "x")
 	board.MarkSpace(4, "x")
@@ -120,16 +122,16 @@ func TestWinningMarker(t *testing.T) {
 	}
 }
 
-func TestWinningMarkerReturnsNothingWhenNoWinner(t *testing.T) {
-	board := board.New(3)
-	board.MarkSpace(0, "x")
-	board.MarkSpace(4, "x")
-	board.MarkSpace(8, "o")
+func TestWinnerReturnsErrorWhenNoWinner(t *testing.T) {
+	aBoard := board.New(3)
+	aBoard.MarkSpace(0, "x")
+	aBoard.MarkSpace(4, "x")
+	aBoard.MarkSpace(8, "o")
 
-	result, err := board.Winner()
+	winner, err := aBoard.Winner()
 
-	if err == nil {
-		t.Errorf("Expected NoWinnerError, got %v", result)
+	if err != board.NoWinnerError {
+		t.Errorf("Expected NoWinnerError, got %v", winner)
 	}
 }
 

@@ -12,8 +12,7 @@ type Console struct {
 }
 
 func New() *Console {
-	cli := Console{Writer: os.Stdout, Reader: os.Stdin}
-	return &cli
+	return &Console{Writer: os.Stdout, Reader: os.Stdin}
 }
 
 func (cli *Console) Read() string {

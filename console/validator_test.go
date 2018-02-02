@@ -1,36 +1,31 @@
 package console
 
 import (
-	"github.com/aaizuss/tictactoe/board"
 	"testing"
+
+	"github.com/aaizuss/tictactoe/board"
 )
 
-func TestIsValidMoveChoiceReturnsTrue(t *testing.T) {
-	board := board.New(3)
-	board.MarkSpace(0, "x")
-	inputMove := "1"
-
-	expected := true
-	result := IsValidMoveChoice(board, inputMove)
-
-	if result != expected {
-		t.Errorf("Expected %v, got %v", expected, result)
-	}
-}
-
-func TestIsValidMoveChoiceReturnsFalseWhenChoiceIsInvalid(t *testing.T) {
+func TestIsValidMoveChoice(t *testing.T) {
 	board := board.New(3)
 	board.MarkSpace(2, "x")
 
-	invalidChoices := []string{
-		"-1", "9", "2", "a", "abc",
+	tests := []struct {
+		moveChoice       string
+		expectedValidity bool
+	}{
+		{"2", false},
+		{"1", true},
+		{"8", true},
+		{"9", false},
+		{"a", false},
+		{"abc", false},
 	}
-	expected := false
 
-	for _, invalidChoice := range invalidChoices {
-		result := IsValidMoveChoice(board, invalidChoice)
-		if result != expected {
-			t.Errorf("Expected IsValidMoveChoice(%v) to be %v, got %v", invalidChoice, expected, result)
+	for _, test := range tests {
+		validity := IsValidMoveChoice(board, test.moveChoice)
+		if validity != test.expectedValidity {
+			t.Errorf("For board %v, expected IsValidMoveChoice(%s) to be %v, got %v", board, test.moveChoice, test.expectedValidity, validity)
 		}
 	}
 }
