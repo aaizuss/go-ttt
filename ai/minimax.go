@@ -1,10 +1,16 @@
 package ai
 
 import (
+	"math/rand"
+	"time"
+
 	"github.com/aaizuss/tictactoe/board"
 )
 
 func ChooseMove(board board.Board, players []string, aiMarker string) int {
+	if board.IsEmpty() {
+		return randomCorner(corners)
+	}
 	return minimax(board, 0, players, aiMarker)
 }
 
@@ -83,3 +89,10 @@ func minimizeScore(scoredMoves map[int]int) (bestMove int, minScore int) {
 	}
 	return bestMove, minScore
 }
+
+func randomCorner(corners []int) int {
+	rand.Seed(time.Now().UnixNano())
+	return corners[rand.Intn(len(corners)-1)]
+}
+
+var corners = []int{0, 2, 6, 8}

@@ -50,6 +50,15 @@ func (board Board) GameOver() bool {
 	return board.IsTie() || board.HasWinner()
 }
 
+func (board Board) IsEmpty() bool {
+	for _, space := range board.spaces {
+		if isMarked(space) {
+			return false
+		}
+	}
+	return true
+}
+
 func isWinningRow(row []string) bool {
 	firstMarker := row[0]
 
@@ -65,4 +74,8 @@ func all(spaces []string, f func(string) bool) bool {
 		}
 	}
 	return true
+}
+
+func isMarked(space string) bool {
+	return space != EmptySpace
 }

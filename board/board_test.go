@@ -7,7 +7,7 @@ import (
 	"github.com/aaizuss/tictactoe/board"
 )
 
-func TestNewBoardReturnsBoardFromDimensions(t *testing.T) {
+func TestNewBoardCalculatesNumSpacesFromDimensions(t *testing.T) {
 	blankBoard := board.New(3)
 
 	expected := 9
@@ -18,13 +18,13 @@ func TestNewBoardReturnsBoardFromDimensions(t *testing.T) {
 }
 
 func TestNewBoardReturnsEmptyBoard(t *testing.T) {
-	board := board.New(3)
+	blankBoard := board.New(3)
 	expectedSpaces := []string{
 		"_", "_", "_",
 		"_", "_", "_",
 		"_", "_", "_",
 	}
-	spaces := board.Spaces()
+	spaces := blankBoard.Spaces()
 
 	if !reflect.DeepEqual(expectedSpaces, spaces) {
 		t.Errorf("Expected board to be %v, got %v", expectedSpaces, spaces)

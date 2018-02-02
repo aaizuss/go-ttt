@@ -168,6 +168,28 @@ func TestGameOverReturnsFalseForOngoingGame(t *testing.T) {
 	}
 }
 
+func TestIsEmptyReturnsFalseForOngoingGame(t *testing.T) {
+	board := ongoingGame()
+
+	expected := false
+	result := board.IsEmpty()
+
+	if result != expected {
+		t.Errorf("Expected %v, got %v\nfrom board: %v", expected, result, board)
+	}
+}
+
+func TestIsEmptyReturnsTrueForNewBoard(t *testing.T) {
+	board := board.New(3)
+
+	expected := true
+	result := board.IsEmpty()
+
+	if result != expected {
+		t.Errorf("Expected %v, got %v\nfrom board: %v", expected, result, board)
+	}
+}
+
 func nearlyFullBoard() board.Board {
 	board := board.New(3)
 

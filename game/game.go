@@ -43,21 +43,20 @@ func New() *Game {
 func (game *Game) Play() {
 	game.ui.Show("welcome")
 	game.SetupPlayers()
+	game.ui.ShowBoard(game.board)
 	game.takeTurns()
 }
 
 func (game *Game) takeTurns() {
 	board := game.board
 	ui := game.ui
-	players := game.players
-
-	ui.ShowBoard(board)
 
 	for !board.GameOver() {
+		currentPlayer := game.players[0]
 		move := game.getMove()
-		board.MarkSpace(move, players[0].marker)
+		board.MarkSpace(move, currentPlayer.marker)
 		ui.ShowBoard(board)
-		ui.ShowMoveRecap(players[0].marker, move)
+		ui.ShowMoveRecap(currentPlayer.marker, move)
 		game.togglePlayer()
 	}
 
