@@ -30,6 +30,17 @@ func TestMinimaxBlocksOpponent(t *testing.T) {
 	}
 }
 
+func TestChoosesCornerWhenFirstPlayerOnEmptyBoard(t *testing.T) {
+	board := board.New(3)
+
+	corners := []int{0, 2, 6, 8}
+	move := ChooseMove(board, []string{"x", "o"}, "x")
+
+	if !contains(corners, move) {
+		t.Errorf("Expected move to be a corner (%v), got %v", corners, move)
+	}
+}
+
 func TestChangeTurn(t *testing.T) {
 	markers := []string{"x", "o"}
 	expect := []string{"o", "x"}
@@ -143,4 +154,13 @@ func tieBoard() board.Board {
 	board.MarkSpace(7, "o")
 	board.MarkSpace(8, "x")
 	return board
+}
+
+func contains(arr []int, element int) bool {
+	for _, item := range arr {
+		if item == element {
+			return true
+		}
+	}
+	return false
 }

@@ -2,7 +2,6 @@ package game
 
 import (
 	"reflect"
-	"strings"
 
 	"github.com/aaizuss/tictactoe/board"
 
@@ -48,17 +47,17 @@ func TestTogglePlayer(t *testing.T) {
 	}
 }
 
-func TestTakeTurnsWhenAboutToTie(t *testing.T) {
+func TestTakeTurnsOnTie(t *testing.T) {
 	cli := MockConsole{UserInput: "8"}
 	players := humanHuman()
 	game := Game{board: almostTieBoard(), players: players, ui: &cli}
 
 	game.takeTurns()
-	expected := "tie"
-	result := cli.Output
+	expected := true
+	result := game.board.IsTie()
 
-	if !strings.Contains(result, expected) {
-		t.Errorf("Expected %v, got %v", expected, result)
+	if result != expected {
+		t.Errorf("Expected IsTie to be %v, got %v", expected, result)
 	}
 }
 
@@ -68,11 +67,11 @@ func TestTakeTurnsHaltsWhenThereIsAWinner(t *testing.T) {
 	game := Game{board: xAlmostWinBoard(), players: players, ui: &cli}
 
 	game.takeTurns()
-	expected := "win"
-	result := cli.Output
+	expectedWinner := "x"
+	result, _ := game.board.Winner()
 
-	if !strings.Contains(result, expected) {
-		t.Errorf("Expected %v, got %v", expected, result)
+	if result != expectedWinner {
+		t.Errorf("Expected winner %v, got %v", expectedWinner, result)
 	}
 }
 

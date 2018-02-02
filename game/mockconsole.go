@@ -26,33 +26,31 @@ func (cli *MockConsole) ShowBoard(board board.Board) {
 
 func (cli *MockConsole) GetMove(board board.Board) (move int) {
 	for {
-		cli.Show("choose-space")
 		move := cli.Read()
-
 		if console.IsValidMoveChoice(board, move) {
 			move, _ := strconv.Atoi(move)
 			return move
 		} else {
-			cli.Show("invalid-move")
+			cli.Show("invalid move")
 		}
 	}
 }
 
 func (cli *MockConsole) GetGameChoice() string {
 	for {
-		cli.Show("choose-game")
+		cli.Show("game menu")
 		choice := cli.Read()
 
 		if console.IsValidGameChoice(choice) {
 			return choice
 		} else {
-			cli.Show("invalid-choice")
+			cli.Show("invalid choice")
 		}
 	}
 }
 
-func (cli *MockConsole) Show(key string) {
-	cli.Write(console.Messages[key])
+func (cli *MockConsole) Show(message string) {
+	cli.Write(message)
 }
 
 func (cli *MockConsole) ShowOutcome(board board.Board) {
@@ -66,5 +64,5 @@ func (cli *MockConsole) ShowOutcome(board board.Board) {
 }
 
 func (cli *MockConsole) ShowMoveRecap(marker string, move int) {
-	cli.Write(marker + " marked " + (strconv.Itoa(move)) + "\n")
+	cli.Show("move recap")
 }

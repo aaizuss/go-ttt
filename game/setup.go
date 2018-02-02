@@ -5,15 +5,21 @@ type Player struct {
 	isHuman bool
 }
 
+const (
+	humans     = "1"
+	humanFirst = "2"
+	aiFirst    = "3"
+)
+
 func (game *Game) SetupPlayers() {
 	choice := game.ui.GetGameChoice()
 
 	switch choice {
-	case "1":
+	case humans:
 		game.players = humanHuman()
-	case "2":
+	case humanFirst:
 		game.players = humanAi()
-	case "3":
+	case aiFirst:
 		game.players = aiHuman()
 	default:
 		game.players = humanAi()

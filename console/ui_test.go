@@ -47,14 +47,13 @@ func TestShow(t *testing.T) {
 	var buf bytes.Buffer
 	io.Writer = &buf
 
-	messageKey := "tie"
-	expectedMessage := "It's a tie!\n"
+	message := "It's a tie!\n"
 
-	io.Show(messageKey)
+	io.Show(message)
 	result := buf.String()
 
-	if result != expectedMessage {
-		t.Errorf("expected output: %s, got %s", expectedMessage, result)
+	if result != message {
+		t.Errorf("expected output: %s, got %s", message, result)
 	}
 }
 
