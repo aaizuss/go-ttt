@@ -18,7 +18,7 @@ func TestFormattedString(t *testing.T) {
 
 func TestConvertRowsToStrings(t *testing.T) {
 	board := New(3)
-	expected := []string{" 0 | 1 | 2\n", " 3 | 4 | 5\n", " 6 | 7 | 8\n"}
+	expected := []string{" 0 | 1 | 2", " 3 | 4 | 5", " 6 | 7 | 8"}
 
 	result := board.convertRowsToStrings()
 
@@ -29,22 +29,12 @@ func TestConvertRowsToStrings(t *testing.T) {
 
 func TestRowToString(t *testing.T) {
 	row := []string{"0", "1", "x"}
-	expected := " 0 | 1 | x\n"
+	expected := " 0 | 1 | x"
 
 	result := rowToString(row)
 
 	if result != expected {
 		t.Errorf("Expected %v, got %v", expected, result)
-	}
-}
-
-func TestDivider(t *testing.T) {
-	want := "-----------\n"
-
-	result := divider()
-
-	if result != want {
-		t.Errorf("Expected %v, got %v", want, result)
 	}
 }
 

@@ -5,14 +5,19 @@ import (
 	"strings"
 )
 
+const (
+	blank        = " "
+	spaceDivider = " | "
+	rowLine      = "\n-----------\n"
+)
+
 func (board Board) FormattedString() string {
-	divider := divider()
 	stringRows := board.convertRowsToStrings()
 	firstRow := stringRows[0]
 	secondRow := stringRows[1]
 	thirdRow := stringRows[2]
 
-	return firstRow + divider + secondRow + divider + thirdRow
+	return firstRow + rowLine + secondRow + rowLine + thirdRow + "\n"
 }
 
 func renderSpace(index int, space string) string {
@@ -34,12 +39,8 @@ func (board Board) convertRowsToStrings() []string {
 }
 
 func rowToString(row []string) string {
-	result := " " + strings.Join(row, " | ") + "\n"
+	result := blank + strings.Join(row, spaceDivider)
 	return result
-}
-
-func divider() string {
-	return strings.Repeat("-", 11) + "\n"
 }
 
 func (board Board) indexedRows() [][]string {
