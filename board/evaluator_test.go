@@ -123,14 +123,14 @@ func TestWinner(t *testing.T) {
 }
 
 func TestWinnerReturnsErrorWhenNoWinner(t *testing.T) {
-	board := board.New(3)
-	board.MarkSpace(0, "x")
-	board.MarkSpace(4, "x")
-	board.MarkSpace(8, "o")
+	aBoard := board.New(3)
+	aBoard.MarkSpace(0, "x")
+	aBoard.MarkSpace(4, "x")
+	aBoard.MarkSpace(8, "o")
 
-	winner, err := board.Winner()
+	winner, err := aBoard.Winner()
 
-	if err == nil {
+	if err != board.NoWinnerError {
 		t.Errorf("Expected NoWinnerError, got %v", winner)
 	}
 }

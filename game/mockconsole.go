@@ -4,7 +4,7 @@ import (
 	"strconv"
 
 	"github.com/aaizuss/tictactoe/board"
-	"github.com/aaizuss/tictactoe/console" //i don't want to depend on this
+	"github.com/aaizuss/tictactoe/console"
 )
 
 type MockConsole struct {

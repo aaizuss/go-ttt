@@ -54,7 +54,7 @@ func TestTakeTurnsWhenAboutToTie(t *testing.T) {
 	game := Game{board: almostTieBoard(), players: players, ui: &cli}
 
 	game.takeTurns()
-	expected := "It's a tie!"
+	expected := "tie"
 	result := cli.Output
 
 	if !strings.Contains(result, expected) {

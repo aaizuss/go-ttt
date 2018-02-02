@@ -31,6 +31,8 @@ There is a computer vs computer test, and it takes 2 seconds to run, so it's in 
 
 ### Idiomatic Go
 I'm just starting too learn go, and the following are resources that I use to write Go like Gophers do
+* [Effective Go](https://golang.org/doc/effective_go.html)
+* [Go Style Guide](https://github.com/golang/go/wiki/CodeReviewComments)
 * [Go Readability](https://talks.golang.org/2014/readability.slide)
 * Naming
   * [Names](https://talks.golang.org/2014/names.slide)
