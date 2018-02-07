@@ -9,7 +9,7 @@ import (
 func TestWrite(t *testing.T) {
 	var io Console
 	var buf bytes.Buffer
-	io.Writer = &buf
+	io.Output = &buf
 
 	message := "Hello, world"
 
