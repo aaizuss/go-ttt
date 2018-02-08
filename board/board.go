@@ -33,9 +33,9 @@ func (board Board) IsValidMove(index int) bool {
 
 func (board Board) EmptySpaces() []int {
 	var emptySpaces []int
-	for index := range board.spaces {
-		if board.spaceEmpty(index) {
-			emptySpaces = append(emptySpaces, index)
+	for i := range board.spaces {
+		if board.spaceEmpty(i) {
+			emptySpaces = append(emptySpaces, i)
 		}
 	}
 	return emptySpaces

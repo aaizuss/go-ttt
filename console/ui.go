@@ -7,11 +7,7 @@ import (
 )
 
 func (cli *Console) ShowBoard(board board.Board) {
-	cli.Write(wrapNewLine(board.FormattedString()))
-}
-
-func (cli *Console) Show(message string) {
-	cli.Write(message)
+	cli.Show(wrapNewLine(board.FormattedString()))
 }
 
 func (cli *Console) ShowOutcome(board board.Board) {
@@ -52,12 +48,7 @@ func (cli *Console) GetGameChoice() string {
 }
 
 func (cli *Console) ShowMoveRecap(marker string, move int) {
-	cli.Write(marker + " marked " + (strconv.Itoa(move)) + "\n")
-}
-
-func toInt(inputMove string) int {
-	move, _ := strconv.Atoi(inputMove)
-	return move
+	cli.Show(marker + " marked " + (strconv.Itoa(move)) + "\n")
 }
 
 const (
@@ -76,4 +67,9 @@ const (
 
 func wrapNewLine(message string) string {
 	return "\n" + message + "\n"
+}
+
+func toInt(inputMove string) int {
+	move, _ := strconv.Atoi(inputMove)
+	return move
 }

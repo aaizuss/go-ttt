@@ -10,10 +10,10 @@ import (
 func TestNewBoardCalculatesNumSpacesFromDimensions(t *testing.T) {
 	blankBoard := board.New(3)
 
-	expected := 9
+	expect := 9
 
-	if blankBoard.NumSpaces != expected {
-		t.Errorf("Expected num spaces to %d, got %d", expected, blankBoard.NumSpaces)
+	if blankBoard.NumSpaces != expect {
+		t.Errorf("Expected %d, got %d", expect, blankBoard.NumSpaces)
 	}
 }
 
@@ -24,21 +24,21 @@ func TestNewBoardReturnsEmptyBoard(t *testing.T) {
 		"_", "_", "_",
 		"_", "_", "_",
 	}
-	spaces := blankBoard.Spaces()
+	gotSpaces := blankBoard.Spaces()
 
-	if !reflect.DeepEqual(expectedSpaces, spaces) {
-		t.Errorf("Expected board to be %v, got %v", expectedSpaces, spaces)
+	if !reflect.DeepEqual(expectedSpaces, gotSpaces) {
+		t.Errorf("Expected board to be %v, got %v", expectedSpaces, gotSpaces)
 	}
 }
 
 func TestMarkSpace(t *testing.T) {
 	myboard := board.New(3)
-	expected := "x"
+	expect := "x"
 
 	myboard.MarkSpace(6, "x")
 
-	if myboard.Spaces()[6] != expected {
-		t.Errorf("Expected space 6 to be %q, got %q", expected, myboard.Spaces()[6])
+	if myboard.Spaces()[6] != expect {
+		t.Errorf("Expected space 6 to be %v, got %v", expect, myboard.Spaces()[6])
 	}
 }
 
@@ -72,11 +72,11 @@ func TestEmptySpaces(t *testing.T) {
 	board.MarkSpace(4, "x")
 	board.MarkSpace(2, "o")
 
-	expected := []int{0, 1, 3, 5, 6, 7, 8}
+	expect := []int{0, 1, 3, 5, 6, 7, 8}
 	result := board.EmptySpaces()
 
-	if !reflect.DeepEqual(expected, result) {
-		t.Errorf("Expected %v, got %v", expected, result)
+	if !reflect.DeepEqual(expect, result) {
+		t.Errorf("Expected %v, got %v", expect, result)
 	}
 }
 

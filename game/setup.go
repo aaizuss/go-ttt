@@ -6,6 +6,8 @@ type Player struct {
 }
 
 const (
+	p1Mark     = "x"
+	p2Mark     = "o"
 	humans     = "1"
 	humanFirst = "2"
 	aiFirst    = "3"
@@ -27,19 +29,19 @@ func (game *Game) SetupPlayers() {
 }
 
 func humanHuman() []Player {
-	p1 := Player{marker: "x", isHuman: true}
-	p2 := Player{marker: "o", isHuman: true}
+	p1 := Player{marker: p1Mark, isHuman: true}
+	p2 := Player{marker: p2Mark, isHuman: true}
 	return []Player{p1, p2}
 }
 
 func aiHuman() []Player {
-	p1 := Player{marker: "x", isHuman: false}
-	p2 := Player{marker: "o", isHuman: true}
+	p1 := Player{marker: p1Mark, isHuman: false}
+	p2 := Player{marker: p2Mark, isHuman: true}
 	return []Player{p1, p2}
 }
 
 func humanAi() []Player {
-	p1 := Player{marker: "x", isHuman: true}
-	p2 := Player{marker: "o", isHuman: false}
+	p1 := Player{marker: p1Mark, isHuman: true}
+	p2 := Player{marker: p2Mark, isHuman: false}
 	return []Player{p1, p2}
 }

@@ -33,10 +33,10 @@ func TestIsValidMoveChoice(t *testing.T) {
 func TestIsValidGameChoiceReturnsTrue(t *testing.T) {
 	input := "2"
 
-	expected := true
+	expect := true
 	result := IsValidGameChoice(input)
 
-	if result != expected {
-		t.Errorf("Expected %v, got %v", expected, result)
+	if result != expect {
+		t.Errorf("Expected %v, got %v", expect, result)
 	}
 }

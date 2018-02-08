@@ -6,30 +6,30 @@ import (
 	"testing"
 )
 
-func TestWrite(t *testing.T) {
+func TestShow(t *testing.T) {
 	var io Console
 	var buf bytes.Buffer
 	io.Output = &buf
 
 	message := "Hello, world"
 
-	io.Write(message)
+	io.Show(message)
 	output := buf.String()
 
 	if output != message {
-		t.Errorf("expected output: %s, got %s", message, output)
+		t.Errorf("expected output: %s, got: %s", message, output)
 	}
 }
 
 func TestRead(t *testing.T) {
 	var io Console
-	want := "Hello"
+	expect := "Hello"
 
-	io.Reader = strings.NewReader(want)
+	io.Reader = strings.NewReader(expect)
 
-	got := io.Read()
+	result := io.Read()
 
-	if got != want {
-		t.Fatalf("expected input: %s, got %v", want, got)
+	if result != expect {
+		t.Fatalf("expected input: %s, got %s", expect, result)
 	}
 }

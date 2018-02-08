@@ -16,7 +16,7 @@ func TestSetupPlayers(t *testing.T) {
 	cli := MockConsole{UserInput: "1"}
 	game := Game{board: board.New(3), players: emptyPlayers(), ui: &cli}
 
-	expected := []Player{
+	expect := []Player{
 		Player{marker: "x", isHuman: true},
 		Player{marker: "o", isHuman: true},
 	}
@@ -24,8 +24,8 @@ func TestSetupPlayers(t *testing.T) {
 	game.SetupPlayers()
 	result := game.players
 
-	if !reflect.DeepEqual(expected, result) {
-		t.Errorf("Expected %v, got %v", expected, result)
+	if !reflect.DeepEqual(expect, result) {
+		t.Errorf("Expected %v, got %v", expect, result)
 	}
 }
 
@@ -34,7 +34,7 @@ func TestTogglePlayer(t *testing.T) {
 	players := humanHuman()
 	game := Game{board: board.New(3), players: players, ui: &cli}
 
-	expected := []Player{
+	expect := []Player{
 		Player{marker: "o", isHuman: true},
 		Player{marker: "x", isHuman: true},
 	}
@@ -42,8 +42,8 @@ func TestTogglePlayer(t *testing.T) {
 	game.togglePlayer()
 	result := game.players
 
-	if !reflect.DeepEqual(expected, result) {
-		t.Errorf("Expected %v, got %v", expected, result)
+	if !reflect.DeepEqual(expect, result) {
+		t.Errorf("Expected %v, got %v", expect, result)
 	}
 }
 
@@ -53,11 +53,11 @@ func TestTakeTurnsOnTie(t *testing.T) {
 	game := Game{board: almostTieBoard(), players: players, ui: &cli}
 
 	game.takeTurns()
-	expected := true
+	expect := true
 	result := game.board.IsTie()
 
-	if result != expected {
-		t.Errorf("Expected IsTie to be %v, got %v", expected, result)
+	if result != expect {
+		t.Errorf("Expected IsTie to be %v, got %v", expect, result)
 	}
 }
 
