@@ -11,7 +11,7 @@ import (
 func CliWithInput(input string) Console {
 	var cli Console
 	var buf bytes.Buffer
-	cli.Writer = &buf
+	cli.Output = &buf
 	cli.Reader = strings.NewReader(input)
 	return cli
 }
@@ -45,7 +45,7 @@ func TestGetMovePromptsForMoveUntilMoveIsValid(t *testing.T) {
 func TestShow(t *testing.T) {
 	var io Console
 	var buf bytes.Buffer
-	io.Writer = &buf
+	io.Output = &buf
 
 	message := "It's a tie!\n"
 
@@ -82,7 +82,7 @@ func TestGetGameChoicePromptsUntilChoiceIsValid(t *testing.T) {
 func TestShowOutcome(t *testing.T) {
 	var io Console
 	var buf bytes.Buffer
-	io.Writer = &buf
+	io.Output = &buf
 	board := xWinsBoard()
 
 	expectedMessage := "Player x wins!\n"

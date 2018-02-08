@@ -1,9 +1,10 @@
 package ai
 
 import (
-	"github.com/aaizuss/tictactoe/board"
 	"reflect"
 	"testing"
+
+	"github.com/aaizuss/tictactoe/board"
 )
 
 func TestMinimaxReturnsWinningMove(t *testing.T) {

@@ -7,12 +7,12 @@ import (
 )
 
 type Console struct {
-	Writer io.Writer
+	Output io.Writer
 	Reader io.Reader
 }
 
 func New() *Console {
-	return &Console{Writer: os.Stdout, Reader: os.Stdin}
+	return &Console{Output: os.Stdout, Reader: os.Stdin}
 }
 
 func (cli *Console) Read() string {
@@ -24,5 +24,5 @@ func (cli *Console) Read() string {
 }
 
 func (cli *Console) Write(message string) {
-	fmt.Fprintf(cli.Writer, "%v", message)
+	fmt.Fprintf(cli.Output, "%v", message)
 }
