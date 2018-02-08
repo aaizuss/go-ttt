@@ -7,40 +7,40 @@ import (
 
 func TestFormattedString(t *testing.T) {
 	board := New(3)
-	expected := " 0 | 1 | 2\n-----------\n 3 | 4 | 5\n-----------\n 6 | 7 | 8\n"
+	expect := " 0 | 1 | 2\n-----------\n 3 | 4 | 5\n-----------\n 6 | 7 | 8\n"
 
 	result := board.FormattedString()
 
-	if !reflect.DeepEqual(expected, result) {
-		t.Errorf("Expected\n%v, got\n%v", expected, result)
+	if !reflect.DeepEqual(expect, result) {
+		t.Errorf("Expected\n%v, got\n%v", expect, result)
 	}
 }
 
 func TestConvertRowsToStrings(t *testing.T) {
 	board := New(3)
-	expected := []string{" 0 | 1 | 2", " 3 | 4 | 5", " 6 | 7 | 8"}
+	expect := []string{" 0 | 1 | 2", " 3 | 4 | 5", " 6 | 7 | 8"}
 
 	result := board.convertRowsToStrings()
 
-	if !reflect.DeepEqual(expected, result) {
-		t.Errorf("Expected %v, got %v", expected, result)
+	if !reflect.DeepEqual(expect, result) {
+		t.Errorf("Expected %v, got %v", expect, result)
 	}
 }
 
 func TestRowToString(t *testing.T) {
 	row := []string{"0", "1", "x"}
-	expected := " 0 | 1 | x"
+	expect := " 0 | 1 | x"
 
 	result := rowToString(row)
 
-	if result != expected {
-		t.Errorf("Expected %v, got %v", expected, result)
+	if result != expect {
+		t.Errorf("Expected %v, got %v", expect, result)
 	}
 }
 
 func TestIndexedRowsFromNewBoard(t *testing.T) {
 	board := New(3)
-	expected := [][]string{
+	expect := [][]string{
 		{"0", "1", "2"},
 		{"3", "4", "5"},
 		{"6", "7", "8"},
@@ -48,8 +48,8 @@ func TestIndexedRowsFromNewBoard(t *testing.T) {
 
 	result := board.indexedRows()
 
-	if !reflect.DeepEqual(expected, result) {
-		t.Errorf("Expected %v, got %v", expected, result)
+	if !reflect.DeepEqual(expect, result) {
+		t.Errorf("Expected %v, got %v", expect, result)
 	}
 }
 

@@ -51,11 +51,6 @@ func (cli *Console) ShowMoveRecap(marker string, move int) {
 	cli.Show(marker + " marked " + (strconv.Itoa(move)) + "\n")
 }
 
-func toInt(inputMove string) int {
-	move, _ := strconv.Atoi(inputMove)
-	return move
-}
-
 const (
 	welcome  = "|----------------------------|\n|-- Welcome to Tic Tac Toe --|\n|----------------------------|\n\n"
 	tie      = "It's a tie!\n"
@@ -72,4 +67,9 @@ const (
 
 func wrapNewLine(message string) string {
 	return "\n" + message + "\n"
+}
+
+func toInt(inputMove string) int {
+	move, _ := strconv.Atoi(inputMove)
+	return move
 }

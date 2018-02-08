@@ -31,23 +31,23 @@ func TestWinningCombos(t *testing.T) {
 
 func TestIsFullReturnsTrueWhenBoardIsFull(t *testing.T) {
 	board := boardWithNumberMarks()
-	expected := true
+	expect := true
 
 	result := board.IsFull()
 
-	if result != expected {
-		t.Errorf("Expected true, got %v", result)
+	if result != expect {
+		t.Errorf("Expected %v, got %v", expect, result)
 	}
 }
 
 func TestIsFullReturnsFalseWhenBoardIsNotFull(t *testing.T) {
 	notFullBoards := []board.Board{nearlyFullBoard(), board.New(3)}
-	expected := false
+	expect := false
 
 	for _, board := range notFullBoards {
 		isFull := board.IsFull()
-		if isFull != expected {
-			t.Errorf("Expected %v, got %v", expected, isFull)
+		if isFull != expect {
+			t.Errorf("Expected %v, got %v", expect, isFull)
 		}
 	}
 }
@@ -58,11 +58,11 @@ func TestHasWinnerDiagonal(t *testing.T) {
 	board.MarkSpace(4, "x")
 	board.MarkSpace(8, "x")
 
-	expected := true
+	expect := true
 	result := board.HasWinner()
 
-	if result != expected {
-		t.Errorf("Expected true, got %v", result)
+	if result != expect {
+		t.Errorf("Expected %v, got %v", expect, result)
 	}
 }
 
@@ -72,11 +72,11 @@ func TestHasWinnerRow(t *testing.T) {
 	board.MarkSpace(4, "x")
 	board.MarkSpace(5, "x")
 
-	expected := true
+	expect := true
 	result := board.HasWinner()
 
-	if result != expected {
-		t.Errorf("Expected true, got %v", result)
+	if result != expect {
+		t.Errorf("Expected %v, got %v", expect, result)
 	}
 }
 
@@ -86,11 +86,11 @@ func TestHasWinnerColumn(t *testing.T) {
 	board.MarkSpace(5, "x")
 	board.MarkSpace(8, "x")
 
-	expected := true
+	expect := true
 	result := board.HasWinner()
 
-	if result != expected {
-		t.Errorf("Expected true, got %v", result)
+	if result != expect {
+		t.Errorf("Expected %v, got %v", expect, result)
 	}
 }
 
@@ -100,11 +100,11 @@ func TestHasWinnerReturnsFalseWhenNoWinner(t *testing.T) {
 	board.MarkSpace(5, "x")
 	board.MarkSpace(8, "o")
 
-	expected := false
+	expect := false
 	result := board.HasWinner()
 
-	if result != expected {
-		t.Errorf("Expected false, got %v", result)
+	if result != expect {
+		t.Errorf("Expected %v, got %v", expect, result)
 	}
 }
 
@@ -118,7 +118,7 @@ func TestWinner(t *testing.T) {
 	result, _ := board.Winner()
 
 	if result != expectedWinner {
-		t.Errorf("Expected x, got %v", result)
+		t.Errorf("Expected %v, got %v", expectedWinner, result)
 	}
 }
 
@@ -138,55 +138,55 @@ func TestWinnerReturnsErrorWhenNoWinner(t *testing.T) {
 func TestIsTieReturnsTrueWhenThereIsATie(t *testing.T) {
 	board := tieBoard()
 
-	expected := true
+	expect := true
 	result := board.IsTie()
 
-	if result != expected {
-		t.Errorf("Expected true, got %v", result)
+	if result != expect {
+		t.Errorf("Expected %v, got %v", expect, result)
 	}
 }
 
 func TestIsTieReturnsFalseWhenNoTie(t *testing.T) {
 	board := nearlyFullBoard()
 
-	expected := false
+	expect := false
 	result := board.IsTie()
 
-	if result != expected {
-		t.Errorf("Expected false, got %v", result)
+	if result != expect {
+		t.Errorf("Expected %v, got %v", expect, result)
 	}
 }
 
 func TestGameOverReturnsFalseForOngoingGame(t *testing.T) {
 	board := ongoingGame()
 
-	expected := false
+	expect := false
 	result := board.GameOver()
 
-	if result != expected {
-		t.Errorf("Expected %v, got %v\nfrom board: %v", expected, result, board)
+	if result != expect {
+		t.Errorf("Expected %v, got %v\nfrom board: %v", expect, result, board)
 	}
 }
 
 func TestIsEmptyReturnsFalseForOngoingGame(t *testing.T) {
 	board := ongoingGame()
 
-	expected := false
+	expect := false
 	result := board.IsEmpty()
 
-	if result != expected {
-		t.Errorf("Expected %v, got %v\nfrom board: %v", expected, result, board)
+	if result != expect {
+		t.Errorf("Expected %v, got %v\nfrom board: %v", expect, result, board)
 	}
 }
 
 func TestIsEmptyReturnsTrueForNewBoard(t *testing.T) {
 	board := board.New(3)
 
-	expected := true
+	expect := true
 	result := board.IsEmpty()
 
-	if result != expected {
-		t.Errorf("Expected %v, got %v\nfrom board: %v", expected, result, board)
+	if result != expect {
+		t.Errorf("Expected %v, got %v\nfrom board: %v", expect, result, board)
 	}
 }
 

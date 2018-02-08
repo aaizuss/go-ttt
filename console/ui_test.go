@@ -8,7 +8,7 @@ import (
 	"github.com/aaizuss/tictactoe/board"
 )
 
-func CliWithInput(input string) Console {
+func cliWithInput(input string) Console {
 	var cli Console
 	var buf bytes.Buffer
 	cli.Output = &buf
@@ -19,48 +19,48 @@ func CliWithInput(input string) Console {
 func TestGetMoveReturnsMove(t *testing.T) {
 	board := board.New(3)
 	board.MarkSpace(0, "x")
-	cli := CliWithInput("5")
+	cli := cliWithInput("5")
 
-	expected := 5
+	expect := 5
 	result := cli.GetMove(board)
 
-	if result != expected {
-		t.Errorf("Expected %v, got %v", expected, result)
+	if result != expect {
+		t.Errorf("Expected %v, got %v", expect, result)
 	}
 }
 
 func TestGetMovePromptsForMoveUntilMoveIsValid(t *testing.T) {
 	board := board.New(3)
 	board.MarkSpace(0, "x")
-	cli := CliWithInput("0\n9\n1")
+	cli := cliWithInput("0\n9\n1")
 
-	expected := 1
+	expect := 1
 	result := cli.GetMove(board)
 
-	if result != expected {
-		t.Errorf("Expected %v, got %v", expected, result)
+	if result != expect {
+		t.Errorf("Expected %v, got %v", expect, result)
 	}
 }
 
 func TestGetGameChoiceReturnsChoice(t *testing.T) {
-	cli := CliWithInput("1")
+	cli := cliWithInput("1")
 
-	expected := "1"
+	expect := "1"
 	result := cli.GetGameChoice()
 
-	if result != expected {
-		t.Errorf("Expected %v, got %v", expected, result)
+	if result != expect {
+		t.Errorf("Expected %v, got %v", expect, result)
 	}
 }
 
 func TestGetGameChoicePromptsUntilChoiceIsValid(t *testing.T) {
-	cli := CliWithInput("abc\n5\n3")
+	cli := cliWithInput("abc\n5\n3")
 
-	expected := "3"
+	expect := "3"
 	result := cli.GetGameChoice()
 
-	if result != expected {
-		t.Errorf("Expected %v, got %v", expected, result)
+	if result != expect {
+		t.Errorf("Expected %v, got %v", expect, result)
 	}
 }
 
