@@ -32,7 +32,7 @@ func New() *Game {
 
 func (game *Game) Play() {
 	game.SetupPlayers()
-	game.ui.ShowBoard(game.board)
+	game.ShowInitialBoard()
 	game.takeTurns()
 }
 
@@ -72,4 +72,10 @@ func (game *Game) currentPlayer() Player {
 
 func (game *Game) markers() []string {
 	return []string{game.players[0].marker, game.players[1].marker}
+}
+
+func (game *Game) ShowInitialBoard() {
+	if game.currentPlayer().isHuman {
+		game.ui.ShowBoard(game.board)
+	}
 }

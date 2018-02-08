@@ -63,10 +63,12 @@ func toInt(inputMove string) int {
 const (
 	welcome  = "|----------------------------|\n|-- Welcome to Tic Tac Toe --|\n|----------------------------|\n\n"
 	tie      = "It's a tie!\n"
-	gameMenu = "Choose a game type.\n" +
-		"1  human v human\n" +
-		"2  human v computer\n" +
-		"3  computer v human\n"
+	gameMenu = "Enter a number to select a game type.\n\n" +
+		"    P1 (x)        P2 (o)\n" +
+		"----------------------------\n" +
+		"1  human     v   human\n" +
+		"2  human     v   computer\n" +
+		"3  computer  v   human\n\n"
 	chooseMovePrompt = "Enter a number 0-8 to mark that position on the board: "
 	invalidMove      = "You can't move there. "
 	invalidChoice    = "That's not an option.\n"
