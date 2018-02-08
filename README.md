@@ -17,13 +17,13 @@ It downloads files from this repo to your local directory, `$GOPATH/src/github.c
 
 ### Play the Game
 ```
-$ cd $GOPATH/src/github.com/aaizuss/tictactoe
+$ cd $GOPATH/src/github.com/aaizuss/go-ttt
 $ go run play.go
 ```
 
 ### Run the tests
 ```
-$ cd $GOPATH/src/github.com/aaizuss/tictactoe
+$ cd $GOPATH/src/github.com/aaizuss/go-ttt
 $ go test ./...
 ```
 will run all the unit tests
