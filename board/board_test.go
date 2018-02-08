@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/aaizuss/tictactoe/board"
+	"github.com/aaizuss/go-ttt/board"
 )
 
 func TestNewBoardCalculatesNumSpacesFromDimensions(t *testing.T) {

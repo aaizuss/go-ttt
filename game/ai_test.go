@@ -5,7 +5,7 @@ package game
 import (
 	"testing"
 
-	"github.com/aaizuss/tictactoe/board"
+	"github.com/aaizuss/go-ttt/board"
 )
 
 func TestComputerVsComputerEndsInTie(t *testing.T) {

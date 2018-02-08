@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"strconv"
 
-	"github.com/aaizuss/tictactoe/board"
+	"github.com/aaizuss/go-ttt/board"
 
 	"testing"
 )

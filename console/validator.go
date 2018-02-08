@@ -3,7 +3,7 @@ package console
 import (
 	"strconv"
 
-	"github.com/aaizuss/tictactoe/board"
+	"github.com/aaizuss/go-ttt/board"
 )
 
 func IsValidMoveChoice(board board.Board, inputMove string) bool {

@@ -1,9 +1,9 @@
 package game
 
 import (
-	"github.com/aaizuss/tictactoe/ai"
-	"github.com/aaizuss/tictactoe/board"
-	"github.com/aaizuss/tictactoe/console"
+	"github.com/aaizuss/go-ttt/ai"
+	"github.com/aaizuss/go-ttt/board"
+	"github.com/aaizuss/go-ttt/console"
 )
 
 type UI interface {

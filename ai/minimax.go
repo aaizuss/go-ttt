@@ -4,7 +4,7 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/aaizuss/tictactoe/board"
+	"github.com/aaizuss/go-ttt/board"
 )
 
 func ChooseMove(board board.Board, players []string, aiMarker string) int {

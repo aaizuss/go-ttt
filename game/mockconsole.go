@@ -3,8 +3,8 @@ package game
 import (
 	"strconv"
 
-	"github.com/aaizuss/tictactoe/board"
-	"github.com/aaizuss/tictactoe/console"
+	"github.com/aaizuss/go-ttt/board"
+	"github.com/aaizuss/go-ttt/console"
 )
 
 type MockConsole struct {

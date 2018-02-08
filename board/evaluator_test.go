@@ -3,7 +3,7 @@ package board_test
 import (
 	"reflect"
 
-	"github.com/aaizuss/tictactoe/board"
+	"github.com/aaizuss/go-ttt/board"
 
 	"testing"
 )

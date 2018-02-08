@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/aaizuss/tictactoe/board"
+	"github.com/aaizuss/go-ttt/board"
 )
 
 func cliWithInput(input string) Console {

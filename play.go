@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/aaizuss/tictactoe/game"
+	"github.com/aaizuss/go-ttt/game"
 )
 
 func main() {

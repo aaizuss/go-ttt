@@ -3,7 +3,7 @@ package console
 import (
 	"strconv"
 
-	"github.com/aaizuss/tictactoe/board"
+	"github.com/aaizuss/go-ttt/board"
 )
 
 func (cli *Console) ShowBoard(board board.Board) {

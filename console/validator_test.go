@@ -3,7 +3,7 @@ package console
 import (
 	"testing"
 
-	"github.com/aaizuss/tictactoe/board"
+	"github.com/aaizuss/go-ttt/board"
 )
 
 func TestIsValidMoveChoice(t *testing.T) {
