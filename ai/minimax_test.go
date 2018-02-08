@@ -7,11 +7,17 @@ import (
 	"github.com/aaizuss/tictactoe/board"
 )
 
+var (
+	aiMarker     = "x"
+	aiTurn       = []string{aiMarker, "o"}
+	opponentTurn = []string{"o", aiMarker}
+)
+
 func TestMinimaxReturnsWinningMove(t *testing.T) {
 	board := xWinsOn8()
 	expect := 8
-	players := []string{"x", "o"}
-	result := minimax(board, 0, players, "x")
+
+	result := minimax(board, 0, aiTurn, aiMarker)
 
 	if result != expect {
 		t.Errorf("Expected %v, got %v", expect, result)
@@ -21,21 +27,19 @@ func TestMinimaxReturnsWinningMove(t *testing.T) {
 func TestMinimaxBlocksOpponent(t *testing.T) {
 	board := xMustBlockOn7()
 	expect := 7
-	players := []string{"x", "o"}
 
-	result := minimax(board, 0, players, "x")
+	result := minimax(board, 0, aiTurn, aiMarker)
 
 	if result != expect {
-		t.Errorf("is ai turn: %v", isAiTurn(players, "x"))
 		t.Errorf("Expected %v, got %v", expect, result)
 	}
 }
 
 func TestChoosesCornerWhenFirstPlayerOnEmptyBoard(t *testing.T) {
 	board := board.New(3)
-
 	corners := []int{0, 2, 6, 8}
-	move := ChooseMove(board, []string{"x", "o"}, "x")
+
+	move := ChooseMove(board, aiTurn, aiMarker)
 
 	if !contains(corners, move) {
 		t.Errorf("Expected move to be a corner (%v), got %v", corners, move)
@@ -54,11 +58,8 @@ func TestChangeTurn(t *testing.T) {
 }
 
 func TestIsAiTurnReturnsTrue(t *testing.T) {
-	markers := []string{"x", "o"}
-	aiMarker := "x"
-
 	expect := true
-	result := isAiTurn(markers, aiMarker)
+	result := isAiTurn(aiTurn, aiMarker)
 
 	if result != expect {
 		t.Errorf("Expected %v, got %v", expect, result)
@@ -81,7 +82,7 @@ func TestScoreReturnsZeroForTie(t *testing.T) {
 	board := tieBoard()
 
 	expect := 0
-	result := score(board, 0, "x")
+	result := score(board, 0, aiMarker)
 
 	if result != expect {
 		t.Errorf("Expected %v, got %v", expect, result)
@@ -89,24 +90,19 @@ func TestScoreReturnsZeroForTie(t *testing.T) {
 }
 
 func TestBestPlayerOutcomesDoesMaxCalcWhenAiTurn(t *testing.T) {
-	players := []string{"x", "o"}
-	aiMarker := "x"
-
 	scoredMoves := map[int]int{
 		6: -98, 7: 0, 8: -98, 3: -98, 5: -98,
 	}
 
 	expectedMove, expectedScore := 7, 0
-	resultMove, resultScore := bestPlayerOutcome(scoredMoves, players, aiMarker)
+	resultMove, resultScore := bestPlayerOutcome(scoredMoves, aiTurn, aiMarker)
 
 	if resultMove != expectedMove || resultScore != expectedScore {
 		t.Errorf("Expected move:%v, score:%v but got move:%v, score:%v", expectedMove, expectedScore, resultMove, resultScore)
 	}
 }
 
-func TestBestPlayerOutcomesDoesMinCalcWhenHumanTurn(t *testing.T) {
-	players := []string{"o", "x"}
-	aiMarker := "x"
+func TestBestPlayerOutcomesDoesMinCalcWhenOpponentTurn(t *testing.T) {
 	scoredMoves := map[int]int{
 		2: -10,
 		8: 35,
@@ -115,7 +111,7 @@ func TestBestPlayerOutcomesDoesMinCalcWhenHumanTurn(t *testing.T) {
 	}
 
 	expectedMove, expectedScore := 4, -12
-	resultMove, resultScore := bestPlayerOutcome(scoredMoves, players, aiMarker)
+	resultMove, resultScore := bestPlayerOutcome(scoredMoves, opponentTurn, aiMarker)
 
 	if resultMove != expectedMove || resultScore != expectedScore {
 		t.Errorf("Expected move:%v, score:%v but got move:%v, score:%v", expectedMove, expectedScore, resultMove, resultScore)
@@ -144,7 +140,6 @@ func xMustBlockOn7() board.Board {
 
 func tieBoard() board.Board {
 	board := board.New(3)
-
 	board.MarkSpace(0, "x")
 	board.MarkSpace(1, "x")
 	board.MarkSpace(2, "o")
@@ -154,6 +149,7 @@ func tieBoard() board.Board {
 	board.MarkSpace(6, "x")
 	board.MarkSpace(7, "o")
 	board.MarkSpace(8, "x")
+
 	return board
 }
 

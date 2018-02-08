@@ -47,7 +47,7 @@ func minimax(board board.Board, depth int, players []string, aiMarker string) in
 
 }
 
-func bestPlayerOutcome(scoredMoves map[int]int, players []string, aiMarker string) (int, int) {
+func bestPlayerOutcome(scoredMoves map[int]int, players []string, aiMarker string) (move int, score int) {
 	if isAiTurn(players, aiMarker) {
 		return maximizeScore(scoredMoves)
 	} else {
@@ -64,12 +64,15 @@ func isAiTurn(markers []string, aiMarker string) bool {
 }
 
 func aiWin(board board.Board, aiMarker string) bool {
-	winner, _ := board.Winner()
+	winner, err := board.Winner()
+	if err != nil {
+		return false
+	}
 	return winner == aiMarker
 }
 
 func maximizeScore(scoredMoves map[int]int) (bestMove int, maxScore int) {
-	bestMove, maxScore = -100, -100
+	bestMove, maxScore = worstForMaxPlayer, worstForMaxPlayer
 	for move, score := range scoredMoves {
 		if score > maxScore {
 			maxScore = score
@@ -80,7 +83,7 @@ func maximizeScore(scoredMoves map[int]int) (bestMove int, maxScore int) {
 }
 
 func minimizeScore(scoredMoves map[int]int) (bestMove int, minScore int) {
-	bestMove, minScore = 100, 100
+	bestMove, minScore = worstForMinPlayer, worstForMinPlayer
 	for move, score := range scoredMoves {
 		if score < minScore {
 			minScore = score
@@ -94,5 +97,10 @@ func randomCorner(corners []int) int {
 	rand.Seed(time.Now().UnixNano())
 	return corners[rand.Intn(len(corners)-1)]
 }
+
+const (
+	worstForMaxPlayer = -100
+	worstForMinPlayer = 100
+)
 
 var corners = []int{0, 2, 6, 8}
