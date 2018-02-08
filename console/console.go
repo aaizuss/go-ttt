@@ -23,6 +23,6 @@ func (cli *Console) Read() string {
 	return input
 }
 
-func (cli *Console) Write(message string) {
+func (cli *Console) Show(message string) {
 	fmt.Fprintf(cli.Output, "%v", message)
 }

@@ -42,21 +42,6 @@ func TestGetMovePromptsForMoveUntilMoveIsValid(t *testing.T) {
 	}
 }
 
-func TestShow(t *testing.T) {
-	var io Console
-	var buf bytes.Buffer
-	io.Output = &buf
-
-	message := "It's a tie!\n"
-
-	io.Show(message)
-	result := buf.String()
-
-	if result != message {
-		t.Errorf("expected output: %s, got %s", message, result)
-	}
-}
-
 func TestGetGameChoiceReturnsChoice(t *testing.T) {
 	cli := CliWithInput("1")
 
