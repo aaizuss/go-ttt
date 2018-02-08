@@ -6,11 +6,14 @@
 2. All Go code resides in a single directory called a [workspace](https://golang.org/doc/code.html#Workspaces). Go expects your workspace to be `$HOME/go`. Create this directory. If you want your go workspace to be located in a different directory, you'll have to [set a `GOPATH` environment variable](https://github.com/golang/go/wiki/SettingGOPATH).
 
 ### Download the Package
-Get my tictactoe code with this command
+Since the repository is private, you'll need to change your `.gitconfig` to force it to use SSH:
 
-`$ go get github.com/aaizuss/tictactoe`
+`git config --global url."git@github.com:".insteadOf "https://github.com/"`
 
-It downloads files from this repo to your local directory, `$GOPATH/src/github.com/aaizuss/tictactoe`
+Then
+`$ go get github.com/aaizuss/go-ttt`
+
+It downloads files from this repo to your local directory, `$GOPATH/src/github.com/aaizuss/go-ttt`
 
 ### Play the Game
 ```
